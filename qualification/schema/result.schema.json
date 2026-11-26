@@ -1,0 +1,626 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/result.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "profile": {
+      "const": "https://quaecer.github.io/specs/qualification/1.0/result"
+    },
+    "policy_digest": {
+      "$ref": "common.schema.json#/$defs/digest"
+    },
+    "use_registry_digest": {
+      "$ref": "common.schema.json#/$defs/digest"
+    },
+    "view_digest": {
+      "$ref": "common.schema.json#/$defs/digest"
+    },
+    "use": {
+      "$ref": "common.schema.json#/$defs/iri"
+    },
+    "subject": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "implementation": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "clock_compatibility": {
+      "enum": [
+        "compatible",
+        "incompatible",
+        "unresolved"
+      ]
+    },
+    "consistency": {
+      "enum": [
+        "consistent",
+        "inconsistent",
+        "unresolved"
+      ]
+    },
+    "qualification": {
+      "enum": [
+        "prerequisites_satisfied",
+        "prerequisites_failed",
+        "prerequisites_unresolved"
+      ]
+    },
+    "authorization": {
+      "const": "not_granted"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coverage"
+      },
+      "maxItems": 5,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "dependence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependence"
+      },
+      "maxItems": 7,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "inconsistencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reason"
+      },
+      "maxItems": 2000,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "transfers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_policy_digest": {
+            "$ref": "common.schema.json#/$defs/digest"
+          },
+          "criterion_digest": {
+            "$ref": "common.schema.json#/$defs/digest"
+          },
+          "target_criterion": {
+            "$ref": "common.schema.json#/$defs/text"
+          }
+        },
+        "required": [
+          "source_policy_digest",
+          "criterion_digest",
+          "target_criterion"
+        ]
+      },
+      "maxItems": 64,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "resolving_sets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "const": "not_run"
+        },
+        "sets": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "search_bound_reached": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "status",
+        "sets",
+        "search_bound_reached"
+      ]
+    }
+  },
+  "required": [
+    "profile",
+    "policy_digest",
+    "use_registry_digest",
+    "view_digest",
+    "use",
+    "subject",
+    "implementation",
+    "clock_compatibility",
+    "consistency",
+    "qualification",
+    "authorization",
+    "findings",
+    "coverage",
+    "dependence",
+    "inconsistencies",
+    "transfers",
+    "resolving_sets"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "qualification": {
+            "const": "prerequisites_satisfied"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "clock_compatibility": {
+            "const": "compatible"
+          },
+          "consistency": {
+            "const": "consistent"
+          },
+          "inconsistencies": {
+            "maxItems": 0
+          },
+          "findings": {
+            "contains": {
+              "properties": {
+                "outcome": {
+                  "const": "passed"
+                }
+              }
+            },
+            "items": {
+              "properties": {
+                "outcome": {
+                  "enum": [
+                    "passed",
+                    "inapplicable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "findings": {
+            "contains": {
+              "properties": {
+                "outcome": {
+                  "const": "failed"
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "qualification": {
+            "const": "prerequisites_failed"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "qualification": {
+            "enum": [
+              "prerequisites_satisfied",
+              "prerequisites_unresolved"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "consistency": {
+            "const": "consistent"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "clock_compatibility": {
+            "const": "compatible"
+          },
+          "inconsistencies": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "clock_compatibility": {
+            "const": "incompatible"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "consistency": {
+            "const": "inconsistent"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "unavailable_report",
+            "report_not_accepted",
+            "missing_body",
+            "conflicting_observations",
+            "coverage_gap",
+            "scope_insufficient",
+            "statement_obligation",
+            "missing_usage",
+            "omitted_event",
+            "forbidden_exposure",
+            "clock_incompatible",
+            "clock_unresolved"
+          ]
+        },
+        "report_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 1000,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "related_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 2000,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/channel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "report_ids",
+        "related_ids",
+        "channel"
+      ]
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criterion": {
+          "$ref": "common.schema.json#/$defs/text"
+        },
+        "execution": {
+          "enum": [
+            "evaluated",
+            "not_applicable",
+            "not_run"
+          ]
+        },
+        "value": {
+          "enum": [
+            "support",
+            "opposition",
+            "both",
+            "neither"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "passed",
+            "failed",
+            "cantTell",
+            "inapplicable",
+            "untested"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reason"
+          },
+          "maxItems": 2000,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "basis": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/pin"
+          },
+          "maxItems": 2000,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "criterion",
+        "execution",
+        "value",
+        "outcome",
+        "reasons",
+        "basis"
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "execution": {
+              "const": "evaluated"
+            },
+            "value": {
+              "const": "support"
+            },
+            "outcome": {
+              "const": "passed"
+            }
+          }
+        },
+        {
+          "properties": {
+            "execution": {
+              "const": "evaluated"
+            },
+            "value": {
+              "const": "opposition"
+            },
+            "outcome": {
+              "const": "failed"
+            }
+          }
+        },
+        {
+          "properties": {
+            "execution": {
+              "const": "evaluated"
+            },
+            "value": {
+              "const": "both"
+            },
+            "outcome": {
+              "const": "cantTell"
+            }
+          }
+        },
+        {
+          "properties": {
+            "execution": {
+              "const": "evaluated"
+            },
+            "value": {
+              "const": "neither"
+            },
+            "outcome": {
+              "const": "cantTell"
+            }
+          }
+        },
+        {
+          "properties": {
+            "execution": {
+              "const": "not_applicable"
+            },
+            "value": {
+              "const": "neither"
+            },
+            "outcome": {
+              "const": "inapplicable"
+            }
+          }
+        },
+        {
+          "properties": {
+            "execution": {
+              "const": "not_run"
+            },
+            "value": {
+              "const": "neither"
+            },
+            "outcome": {
+              "const": "untested"
+            }
+          }
+        }
+      ]
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "interval": {
+          "$ref": "common.schema.json#/$defs/interval"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 100,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "interval",
+        "unit_ids"
+      ]
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "covered": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region"
+          },
+          "maxItems": 500,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/interval"
+          },
+          "maxItems": 500,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "defeated": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/region"
+          },
+          "maxItems": 500,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "statements": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/pin"
+          },
+          "maxItems": 100,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reason"
+          },
+          "maxItems": 2000,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "covered",
+        "gaps",
+        "defeated",
+        "statements",
+        "reasons"
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "channel": {
+          "$ref": "common.schema.json#/$defs/channel"
+        },
+        "window": {
+          "$ref": "#/$defs/composition"
+        },
+        "history": {
+          "$ref": "#/$defs/composition"
+        }
+      },
+      "required": [
+        "channel",
+        "window",
+        "history"
+      ]
+    },
+    "dependence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "$ref": "common.schema.json#/$defs/dimension"
+        },
+        "comparison": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "left": {
+                  "$ref": "common.schema.json#/$defs/pin"
+                },
+                "right": {
+                  "$ref": "common.schema.json#/$defs/pin"
+                }
+              },
+              "required": [
+                "left",
+                "right"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "relation": {
+          "enum": [
+            "shared",
+            "distinct",
+            "unknown"
+          ]
+        },
+        "reports": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/pin"
+          },
+          "maxItems": 1000,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "basis": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/pin"
+          },
+          "maxItems": 2000,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "dimension",
+        "comparison",
+        "relation",
+        "reports",
+        "basis"
+      ]
+    }
+  }
+}

@@ -34,12 +34,7 @@
       "pattern": "^[+-]?[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?(?:[0-9]{1,3}|1000))?(?![\\s\\S])"
     },
     "use_kind": {
-      "enum": [
-        "computational_reanalysis",
-        "new_empirical_anchor",
-        "held_out",
-        "prospective_locked"
-      ]
+      "$ref": "use-registry.schema.json#/$defs/use"
     },
     "channel": {
       "enum": [

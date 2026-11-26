@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/response.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "valid",
+            "invalid"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "$ref": "result.schema.json"
+    }
+  ]
+}
