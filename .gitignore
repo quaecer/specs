@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+.env*
+results/
+.quarto/
+_freeze/
+*.local.*
+.DS_Store

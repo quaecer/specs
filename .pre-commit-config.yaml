@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 9026c9127e153371d7a78dfcb0c45ae2046a3d10
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: mypy
+        name: strict types
+        entry: uv run --directory qualification --locked mypy src
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: gitleaks
+        name: scan staged changes
+        entry: gitleaks git --pre-commit --staged --redact=100 --no-banner
+        language: system
+        pass_filenames: false
+        always_run: true

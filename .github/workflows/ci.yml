@@ -1,0 +1,108 @@
+name: ci
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    name: test (${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.12", "3.13"]
+    defaults:
+      run:
+        working-directory: qualification
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+      with:
+        version: "0.13.10"
+        checksum: bf65ac1a0af10f92c522d91ac096c7c0a39657647b155577e7836c2cbbb4526c
+        require-checksums: true
+        enable-cache: false
+    - run: uv sync --locked --python "${{ matrix.python }}"
+    - run: uv run --project qualification --locked ruff check .
+      working-directory: .
+    - run: uv run --project qualification --locked ruff format --check .
+      working-directory: .
+    - run: uv run --locked mypy src
+    - run: uv run --locked pytest
+  stdlib-only:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: qualification
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+      with:
+        version: "0.13.10"
+        checksum: bf65ac1a0af10f92c522d91ac096c7c0a39657647b155577e7836c2cbbb4526c
+        require-checksums: true
+        enable-cache: false
+    - name: test an installed wheel without runtime dependencies
+      run: |
+        scratch=$(mktemp -d)
+        uv build --wheel --out-dir "$scratch"
+        uv venv "$scratch/venv" --python 3.12
+        uv pip install --python "$scratch/venv/bin/python" --no-deps "$scratch"/*.whl
+        "$scratch/venv/bin/python" -I -m unittest discover -s tests/unit
+  gate:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+        persist-credentials: false
+    - name: install pinned secret scanner
+      run: |
+        scratch=$(mktemp -d)
+        cd "$scratch"
+        asset=gitleaks_8.30.1_linux_x64.tar.gz
+        curl --proto '=https' --tlsv1.2 -fsSLo "$asset" "https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/$asset"
+        printf '%s  %s\n' '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb' "$asset" | sha256sum -c -
+        tar -xzf "$asset" gitleaks
+        printf '%s\n' "$scratch" >> "$GITHUB_PATH"
+    - name: check all reachable history
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GATE_GITHUB_REPOSITORY: ${{ github.repository }}
+        GATE_PATTERNS_HARD: ${{ secrets.GATE_PATTERNS_HARD }}
+        GATE_PATTERNS_REVIEW: ${{ secrets.GATE_PATTERNS_REVIEW }}
+      run: python3 .github/gate.py
+  integration:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+      with:
+        version: "0.13.10"
+        checksum: bf65ac1a0af10f92c522d91ac096c7c0a39657647b155577e7836c2cbbb4526c
+        require-checksums: true
+        enable-cache: false
+    - name: verify the installed components
+      env:
+        PR_REPOSITORY: ${{ github.repository }}
+        PR_BRANCH: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.head_ref || '' }}
+        PR_REVISION: ${{ github.event.pull_request.head.sha }}
+      run: |
+        python3 .github/integration.py --head "$PR_REPOSITORY" "$PR_BRANCH" "$PR_REVISION" \
+          --out "$RUNNER_TEMP/conformance"
