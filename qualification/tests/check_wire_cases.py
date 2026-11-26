@@ -10,14 +10,14 @@ from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
 
-def _validator() -> Draft202012Validator:
+def _validator(name: str = "request") -> Draft202012Validator:
     schemas = [read(path) for path in sorted((ROOT / "schema").glob("*.schema.json"))]
     for schema in schemas:
         Draft202012Validator.check_schema(schema)
     registry = Registry().with_resources(
         (schema["$id"], Resource.from_contents(schema)) for schema in schemas
     )
-    request = read(ROOT / "schema" / "request.schema.json")
+    request = read(ROOT / "schema" / f"{name}.schema.json")
     return Draft202012Validator(request, registry=registry)
 
 
@@ -41,18 +41,27 @@ def main() -> None:
         return
 
     matrix = check(ROOT)
+    directories = sorted((ROOT / "suite" / "wire").iterdir())
+    wire_ids = {directory.name for directory in directories}
     expected_cases = {
         case: status
         for entry in matrix.values()
         for role, status in (("positive", "valid"), ("negative", "invalid"))
         for case in entry[role]
+        if case in wire_ids
     }
-    for directory in sorted((ROOT / "suite" / "wire").iterdir()):
+    for directory in directories:
         expected = read(directory / "expected.json")["status"]
         observed = "valid" if validator.is_valid(read(directory / "input.json")) else "invalid"
         if expected_cases[directory.name] != expected or observed != expected:
             raise SystemExit(f"wire case disagrees with schema or registry: {directory.name}")
     print(json.dumps({"requirements": len(matrix), "wire_cases": len(expected_cases)}))
+    response = _validator("response")
+    verification = _validator("verification-request")
+    for name, input_validator in (("assessment", validator), ("receiver", verification)):
+        for directory in sorted((ROOT / "suite" / name).iterdir()):
+            input_validator.validate(read(directory / "input.json"))
+            response.validate(read(directory / "expected.json"))
 
 
 if __name__ == "__main__":

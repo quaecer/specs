@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Check raw artifact data rather than trusting a body report.","id":"QUAL-TC-0022","requirements":["QUAL-REQ-015"]}
