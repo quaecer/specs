@@ -71,3 +71,20 @@ The resolving-set field is reserved with status `not_run`.
 An extension use is representable in a policy with the same identifier
 grammar as the registry. Assessment additionally checks that the bound
 registry declares the use. Structural validation alone checks its shape.
+
+## RDF result projection
+
+The [fixed JSON-LD context](../context/result.jsonld) projects an assessed
+result into RDF. Type the root as `qual:Result` and each finding as
+`earl:TestResult`. Use `{"@id":"qual:Null"}` at explicit null positions so
+the RDF projection preserves absence of a value. Lists retain their wire
+order. Exact pins have an IRI subject and a digest literal. EARL outcomes
+retain their standard identifiers.
+
+The [result shape](../shapes/result.ttl) tests structural carriage, including
+the presence of exact binding fields, findings and reserved resolving-set
+fields. Receivers select exactly one typed result before applying the shape.
+The receiving evaluator derives findings from policy and raw
+observations independently of this projection. These shapes describe a
+draft result surface. Raw evidence RDF and complete receiver conformance
+remain separate work.
