@@ -1,5 +1,5 @@
 {
-  "status": "draft",
+  "format": "qualification-use-registry@1",
   "uses": ["computational_reanalysis", "new_empirical_anchor", "held_out", "prospective_locked"],
   "edges": [
     {"target": "computational_reanalysis", "source": "new_empirical_anchor"},

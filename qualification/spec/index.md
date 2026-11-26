@@ -8,5 +8,20 @@ premises and exact clock compatibility reduction. The [draft use
 registry](../registry/uses.json) records the built-in edges. The transfer
 contract is open for review before implementation.
 
-The wire schemas, reason registry and executable conformance suite form
-the rest of the specification.
+The [use registry schema](../schema/use-registry.schema.json) defines the
+fields of a registry. Use identifiers are lowercase ASCII letters and digits
+with single underscores between groups, starting with a letter. A UTF-8
+document supplies each JSON member and use at most once. Every edge joins two
+different declared uses, and explicit edges are unique and acyclic.
+The edge object names the proposed `target` and `source` uses. The order
+includes each use paired with itself and every pair connected by following
+edges from target to source. Any path permits a transfer attempt subject to
+the criteria and checks in the formal draft.
+
+To check a registry and print its order, run
+`uv run --locked python -m quaecer.spec_qualification.use_registry registry/uses.json`
+from the qualification directory. The output lists pairs sorted by target
+and then source.
+
+The remaining wire schemas, reason registry and conformance suite are in
+development.
