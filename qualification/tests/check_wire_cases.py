@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: Apache-2.0
 """Run structural fixtures against the checked local schemas."""
 
+import argparse
 import json
+import sys
 
-from check_traceability import ROOT, check, read
+from check_traceability import ROOT, _unique, check, read
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
 
-def main() -> None:
-    """Resolve all schema references from local files and check every fixture."""
-    matrix = check(ROOT)
+def _validator() -> Draft202012Validator:
     schemas = [read(path) for path in sorted((ROOT / "schema").glob("*.schema.json"))]
     for schema in schemas:
         Draft202012Validator.check_schema(schema)
@@ -18,7 +18,29 @@ def main() -> None:
         (schema["$id"], Resource.from_contents(schema)) for schema in schemas
     )
     request = read(ROOT / "schema" / "request.schema.json")
-    validator = Draft202012Validator(request, registry=registry)
+    return Draft202012Validator(request, registry=registry)
+
+
+def main() -> None:
+    """Check the fixtures or answer one structural validation request."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--serve", action="store_true")
+    args = parser.parse_args()
+    validator = _validator()
+    if args.serve:
+        limit = 2 * 1024 * 1024
+        raw = sys.stdin.buffer.read(limit + 1)
+        valid = False
+        if len(raw) <= limit:
+            try:
+                document = json.loads(raw.decode("utf-8"), object_pairs_hook=_unique)
+                valid = validator.is_valid(document) and document["operation"] == "validate"
+            except (ValueError, RecursionError):
+                pass
+        print(json.dumps({"status": "valid" if valid else "invalid"}))
+        return
+
+    matrix = check(ROOT)
     expected_cases = {
         case: status
         for entry in matrix.values()

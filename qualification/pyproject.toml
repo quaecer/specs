@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "quaecer-spec-qualification"
-version = "1.0.0.dev0"
+version = "1.0.0"
 description = "Versioned specifications, schemas and conformance cases."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -18,6 +18,12 @@ Source = "https://github.com/quaecer/specs"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/quaecer"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"registry" = "quaecer/spec_qualification/_assets/registry"
+"schema" = "quaecer/spec_qualification/_assets/schema"
+"spec" = "quaecer/spec_qualification/_assets/spec"
+"suite" = "quaecer/spec_qualification/_assets/suite"
 
 [dependency-groups]
 dev = ["jsonschema==4.26.0", "mypy>=1.15,<2", "pre-commit>=4,<5", "pytest>=8,<10", "ruff==0.17.6"]

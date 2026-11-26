@@ -17,6 +17,11 @@ the links between numbered clauses and positive and negative cases.
 `uv run --locked python tests/check_wire_cases.py` also checks the schemas
 and runs the structural cases with offline reference resolution.
 
+The wheel includes the draft schemas, registries, specification and suite
+from their source directories. The installed module exposes `schema(name)`,
+`registry(name)` and `suite_path(name)`. After editing resources in a local
+checkout, reinstall the distribution before testing the installed copies.
+
 Set `GATE_GITHUB_REPOSITORY` to the GitHub owner and repository and authenticate
 `gh` to include all pull request and issue text in the publication scan.
 CI scans repository text for owner branches. Run a maintainer scan before
