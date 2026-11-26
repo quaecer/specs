@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Cite this component using this metadata."
+title: "specs"
+authors:
+  - family-names: Steeghs-Turchina
+    given-names: Mariia
+license: Apache-2.0
+version: 1.0.0.dev0
+repository-code: https://github.com/quaecer/specs
