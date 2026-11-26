@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0005",
+  "description": "Refuse a report missing its exact subject.",
+  "requirements": [
+    "QUAL-REQ-004"
+  ],
+  "comparison": "canonical-equal"
+}

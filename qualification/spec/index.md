@@ -23,5 +23,6 @@ To check a registry and print its order, run
 from the qualification directory. The output lists pairs sorted by target
 and then source.
 
-The remaining wire schemas, reason registry and conformance suite are in
-development.
+The [interchange draft](wire.md) documents the evidence and policy schemas,
+the validation operation and the first requirement-linked cases. Assessment
+results, reason terms and their conformance cases are in development.

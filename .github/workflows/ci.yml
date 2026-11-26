@@ -34,6 +34,7 @@ jobs:
       working-directory: .
     - run: uv run --locked mypy src
     - run: uv run --locked python -m quaecer.spec_qualification.use_registry registry/uses.json
+    - run: uv run --locked python tests/check_wire_cases.py
     - run: uv run --locked pytest
   stdlib-only:
     runs-on: ubuntu-latest

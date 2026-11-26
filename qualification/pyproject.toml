@@ -20,7 +20,7 @@ Source = "https://github.com/quaecer/specs"
 packages = ["src/quaecer"]
 
 [dependency-groups]
-dev = ["mypy>=1.15,<2", "pre-commit>=4,<5", "pytest>=8,<10", "ruff==0.17.6"]
+dev = ["jsonschema==4.26.0", "mypy>=1.15,<2", "pre-commit>=4,<5", "pytest>=8,<10", "ruff==0.17.6"]
 
 [tool.ruff]
 line-length = 100

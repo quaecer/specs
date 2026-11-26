@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0006",
+  "description": "Refuse a parent digest in a segmented statement.",
+  "requirements": [
+    "QUAL-REQ-005"
+  ],
+  "comparison": "canonical-equal"
+}

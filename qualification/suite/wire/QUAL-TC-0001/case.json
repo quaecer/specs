@@ -1,0 +1,14 @@
+{
+  "id": "QUAL-TC-0001",
+  "description": "Accept a complete draft validation request.",
+  "requirements": [
+    "QUAL-REQ-001",
+    "QUAL-REQ-002",
+    "QUAL-REQ-003",
+    "QUAL-REQ-004",
+    "QUAL-REQ-005",
+    "QUAL-REQ-006",
+    "QUAL-REQ-007"
+  ],
+  "comparison": "canonical-equal"
+}

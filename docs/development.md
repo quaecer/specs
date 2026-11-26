@@ -12,6 +12,11 @@ Squash with the pull request title followed by the pull request number in
 parentheses and leave the commit body empty.
 Run `python3 .github/gate.py` with the maintainer's pattern environment before promotion.
 
+From `qualification/`, run `python tests/check_traceability.py` to check
+the links between numbered clauses and positive and negative cases.
+`uv run --locked python tests/check_wire_cases.py` also checks the schemas
+and runs the structural cases with offline reference resolution.
+
 Set `GATE_GITHUB_REPOSITORY` to the GitHub owner and repository and authenticate
 `gh` to include all pull request and issue text in the publication scan.
 CI scans repository text for owner branches. Run a maintainer scan before

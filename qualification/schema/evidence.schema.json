@@ -1,0 +1,984 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/evidence.schema.json",
+  "type": "object",
+  "properties": {
+    "profile": {
+      "const": "https://quaecer.github.io/specs/qualification/1.0/evidence"
+    },
+    "use": {
+      "$ref": "common.schema.json#/$defs/iri"
+    },
+    "policy_digest": {
+      "$ref": "common.schema.json#/$defs/digest"
+    },
+    "subject": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "implementation": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "claim": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/pin"
+      },
+      "maxItems": 2000,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "reports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/report"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "profile",
+    "use",
+    "policy_digest",
+    "subject",
+    "implementation",
+    "claim",
+    "references",
+    "reports"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "inventory_entry": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "reference"
+            },
+            "event_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            }
+          },
+          "required": [
+            "kind",
+            "event_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "typed"
+            },
+            "event_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "usage_digest": {
+              "$ref": "common.schema.json#/$defs/digest"
+            },
+            "channel": {
+              "$ref": "common.schema.json#/$defs/channel"
+            },
+            "resource": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "event_class": {
+              "const": "information_use"
+            },
+            "at": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uncertainty_before_us": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uncertainty_after_us": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "occurrence_id": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/iri"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "same_as": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/iri"
+              },
+              "maxItems": 32,
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "event_id",
+            "usage_digest",
+            "channel",
+            "resource",
+            "event_class",
+            "at",
+            "uncertainty_before_us",
+            "uncertainty_after_us",
+            "occurrence_id",
+            "same_as"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "segment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/iri"
+        },
+        "interval": {
+          "$ref": "common.schema.json#/$defs/interval"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inventory_entry"
+          },
+          "maxItems": 500,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "inventory_digest": {
+          "$ref": "common.schema.json#/$defs/digest"
+        }
+      },
+      "required": [
+        "id",
+        "interval",
+        "entries",
+        "inventory_digest"
+      ],
+      "additionalProperties": false
+    },
+    "report": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "check"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "criterion": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "state": {
+              "enum": [
+                "ran",
+                "not_run"
+              ]
+            },
+            "result": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "pass",
+                    "fail",
+                    "unknown"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "criterion",
+            "state",
+            "result"
+          ],
+          "additionalProperties": false,
+          "if": {
+            "properties": {
+              "state": {
+                "const": "not_run"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "pass",
+                  "fail",
+                  "unknown"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "control"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "criterion": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "state": {
+              "enum": [
+                "ran",
+                "not_run"
+              ]
+            },
+            "observed": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/decimal"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "unit": {
+              "$ref": "common.schema.json#/$defs/text"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "criterion",
+            "state",
+            "observed",
+            "unit"
+          ],
+          "additionalProperties": false,
+          "if": {
+            "properties": {
+              "state": {
+                "const": "not_run"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "observed": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "observed": {
+                "$ref": "common.schema.json#/$defs/decimal"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "dependence"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "dimension": {
+              "$ref": "common.schema.json#/$defs/dimension"
+            },
+            "relation": {
+              "enum": [
+                "shared",
+                "distinct",
+                "unknown"
+              ]
+            },
+            "left": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "right": {
+              "$ref": "common.schema.json#/$defs/pin"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "dimension",
+            "relation",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "run_status"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "run": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "value": {
+              "enum": [
+                "succeeded",
+                "failed",
+                "interrupted",
+                "unknown"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "run",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "selection"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "required": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 500,
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "included": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 500,
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "omitted": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 500,
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "required",
+            "included",
+            "omitted"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "body"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "artifact": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "raw_sha256": {
+              "$ref": "common.schema.json#/$defs/digest"
+            },
+            "size": {
+              "$ref": "common.schema.json#/$defs/integer",
+              "maximum": 2097152
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "artifact",
+            "raw_sha256",
+            "size"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "exposure"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "channel": {
+              "$ref": "common.schema.json#/$defs/channel"
+            },
+            "resource": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "event_class": {
+              "const": "information_use"
+            },
+            "identity_scheme": {
+              "anyOf": [
+                {
+                  "const": "https://quaecer.github.io/specs/qualification/1.0/occurrence/explicit-id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "clock_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "at": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uncertainty_before_us": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "uncertainty_after_us": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "occurrence_id": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/iri"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "same_as": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/iri"
+              },
+              "maxItems": 32,
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "channel",
+            "resource",
+            "event_class",
+            "identity_scheme",
+            "clock_id",
+            "at",
+            "uncertainty_before_us",
+            "uncertainty_after_us",
+            "occurrence_id",
+            "same_as"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "completeness"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "observer": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "scope_kind": {
+              "enum": [
+                "capture_window",
+                "selected_history"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/channel"
+              },
+              "maxItems": 5,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "interval": {
+              "$ref": "common.schema.json#/$defs/interval"
+            },
+            "selection_rule": {
+              "const": "all_information_uses"
+            },
+            "status": {
+              "enum": [
+                "complete",
+                "incomplete",
+                "disabled",
+                "unknown"
+              ]
+            },
+            "clock_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "accuracy_us": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "identity_scheme": {
+              "anyOf": [
+                {
+                  "const": "https://quaecer.github.io/specs/qualification/1.0/occurrence/explicit-id"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "entries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/inventory_entry"
+              },
+              "maxItems": 500,
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "inventory_digest": {
+              "anyOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/digest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "segments": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/segment"
+              },
+              "maxItems": 100,
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "observer",
+            "scope_kind",
+            "channels",
+            "interval",
+            "selection_rule",
+            "status",
+            "clock_id",
+            "accuracy_us",
+            "identity_scheme",
+            "entries",
+            "inventory_digest",
+            "segments"
+          ],
+          "additionalProperties": false,
+          "if": {
+            "properties": {
+              "segments": {
+                "minItems": 1
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "entries": {
+                "maxItems": 0
+              },
+              "inventory_digest": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "inventory_digest": {
+                "$ref": "common.schema.json#/$defs/digest"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "capture_challenge"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "about_observer": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "channel": {
+              "$ref": "common.schema.json#/$defs/channel"
+            },
+            "interval": {
+              "$ref": "common.schema.json#/$defs/interval"
+            },
+            "witness": {
+              "$ref": "common.schema.json#/$defs/pin"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "about_observer",
+            "channel",
+            "interval",
+            "witness"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "kind": {
+              "const": "channel_scope_challenge"
+            },
+            "issuer": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "subject": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "implementation": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "basis": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "channel": {
+              "$ref": "common.schema.json#/$defs/channel"
+            },
+            "interval": {
+              "$ref": "common.schema.json#/$defs/interval"
+            },
+            "witness": {
+              "$ref": "common.schema.json#/$defs/pin"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "issuer",
+            "subject",
+            "implementation",
+            "basis",
+            "channel",
+            "interval",
+            "witness"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}
