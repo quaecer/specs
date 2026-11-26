@@ -2,8 +2,8 @@
 
 An implementation receives a JSON request on standard input and returns one
 JSON response on standard output. No retrieval is needed to interpret the
-request. The charts and tables in the evidence are supplied by value or
-through exact revision pins. A revision pin pairs an identifier and a digest.
+request. Reports are supplied by value. A revision pin pairs a linked
+record's identifier and digest.
 
 - [Request](../schema/request.schema.json) includes the policy, use registry,
   raw evidence and caller context. The `validate` operation checks wire
@@ -43,5 +43,31 @@ Structural validation can check the fields, types, lexical bounds and
 variant shapes. Semantic checks additionally compare actual digests,
 verify inventory partitioning, resolve accepted aliases and reason about
 clock compatibility. The [formal draft](formal.md) describes the temporal
-model and transfer premises. The result schema and the executable
-assessment cases are separate slices.
+model and transfer premises. The executable assessment cases are a separate
+slice.
+
+## Result representation
+
+The [response schema](../schema/response.schema.json) accepts the validation
+statuses or a [structured assessment](../schema/result.schema.json). An
+evaluated criterion carries support, opposition, both or neither. The
+sceptical projection maps them to passed, failed, cannot tell and cannot
+tell respectively. Execution can separately mark a criterion inapplicable
+or untested. The [reason registry](../registry/reasons.json) fixes the draft
+labels used to describe the basis.
+
+A positive qualification requires an exact compatible clock result,
+consistent accepted evidence, at least one passed criterion, and passed
+outcomes on every applicable criterion. A definite failed criterion gives
+a failed qualification even when timing or consistency is unresolved.
+The result always carries `authorization: not_granted`.
+
+Coverage has separate window and history compositions. Each retains
+covered regions, gaps, defeated regions and the involved commitments.
+Dependence has a dimension, exact comparison, relation and retained
+basis. Transfer records bind criterion and source policy digests.
+The resolving-set field is reserved with status `not_run`.
+
+An extension use is representable in a policy with the same identifier
+grammar as the registry. Assessment additionally checks that the bound
+registry declares the use. Structural validation alone checks its shape.

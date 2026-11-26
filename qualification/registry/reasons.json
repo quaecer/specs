@@ -1,0 +1,17 @@
+{
+  "format": "qualification-reason-registry@1",
+  "codes": {
+    "unavailable_report": "Required observation is unavailable.",
+    "report_not_accepted": "Caller did not accept the report digest.",
+    "missing_body": "Exact artifact bytes are unavailable.",
+    "conflicting_observations": "Accepted observations support opposing values.",
+    "coverage_gap": "No eligible commitment establishes coverage in part of the required interval.",
+    "scope_insufficient": "A commitment does not cover the relevant policy scope.",
+    "statement_obligation": "A commitment does not satisfy a required support condition.",
+    "missing_usage": "An inventory entry cannot be resolved to typed usage.",
+    "omitted_event": "Accepted occurrence contradicts committed inventory.",
+    "forbidden_exposure": "Accepted occurrence is forbidden in the required history.",
+    "clock_incompatible": "Accepted timing premises have no compatible timeline.",
+    "clock_unresolved": "The accepted timing premises could not be checked completely."
+  }
+}
