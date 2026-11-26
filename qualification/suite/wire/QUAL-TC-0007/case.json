@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0007",
+  "description": "Refuse omission of caller report pins.",
+  "requirements": [
+    "QUAL-REQ-006"
+  ],
+  "comparison": "canonical-equal"
+}

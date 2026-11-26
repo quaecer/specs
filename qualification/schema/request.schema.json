@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/request.schema.json",
+  "type": "object",
+  "properties": {
+    "profile": {
+      "const": "https://quaecer.github.io/specs/qualification/1.0/request"
+    },
+    "operation": {
+      "enum": [
+        "validate",
+        "assess"
+      ]
+    },
+    "policy": {
+      "$ref": "policy.schema.json"
+    },
+    "evidence": {
+      "$ref": "evidence.schema.json"
+    },
+    "use_registry": {
+      "$ref": "use-registry.schema.json"
+    },
+    "caller": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "$ref": "common.schema.json#/$defs/iri"
+        },
+        "subject": {
+          "$ref": "common.schema.json#/$defs/pin"
+        },
+        "implementation": {
+          "$ref": "common.schema.json#/$defs/pin"
+        },
+        "policy_digest": {
+          "$ref": "common.schema.json#/$defs/digest"
+        },
+        "use_registry_digest": {
+          "$ref": "common.schema.json#/$defs/digest"
+        },
+        "report_pins": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/pin"
+          },
+          "maxItems": 1000,
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "bodies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "bytes_base64": {
+                "type": "string",
+                "maxLength": 2796204,
+                "contentEncoding": "base64"
+              }
+            },
+            "required": [
+              "artifact",
+              "bytes_base64"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 500,
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "use",
+        "subject",
+        "implementation",
+        "policy_digest",
+        "use_registry_digest",
+        "report_pins",
+        "bodies"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "profile",
+    "operation",
+    "policy",
+    "evidence",
+    "use_registry",
+    "caller"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0003",
+  "description": "Refuse an extra operator field.",
+  "requirements": [
+    "QUAL-REQ-002"
+  ],
+  "comparison": "canonical-equal"
+}

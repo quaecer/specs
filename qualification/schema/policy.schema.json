@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/policy.schema.json",
+  "type": "object",
+  "properties": {
+    "profile": {
+      "const": "https://quaecer.github.io/specs/qualification/1.0/policy"
+    },
+    "use": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/iri"
+        },
+        "kind": {
+          "$ref": "common.schema.json#/$defs/use_kind"
+        },
+        "question": {
+          "$ref": "common.schema.json#/$defs/text"
+        },
+        "claim": {
+          "$ref": "common.schema.json#/$defs/pin"
+        },
+        "scope": {
+          "$ref": "common.schema.json#/$defs/text"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "question",
+        "claim",
+        "scope"
+      ],
+      "additionalProperties": false
+    },
+    "use_registry_digest": {
+      "$ref": "common.schema.json#/$defs/digest"
+    },
+    "subject": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "implementation": {
+      "$ref": "common.schema.json#/$defs/pin"
+    },
+    "window": {
+      "$ref": "common.schema.json#/$defs/interval"
+    },
+    "history_scope": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "additionalProperties": false
+    },
+    "lock_at": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/channel"
+      },
+      "maxItems": 5,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "forbidden": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/pin"
+      },
+      "maxItems": 500,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "conflict_policy": {
+      "const": "sceptical"
+    },
+    "scope_margin_us": {
+      "$ref": "common.schema.json#/$defs/integer"
+    },
+    "defeat_scope": {
+      "enum": [
+        "segment",
+        "statement",
+        "observer_channel",
+        "observer"
+      ]
+    }
+  },
+  "required": [
+    "profile",
+    "use",
+    "use_registry_digest",
+    "subject",
+    "implementation",
+    "window",
+    "history_scope",
+    "lock_at",
+    "channels",
+    "forbidden",
+    "rules",
+    "conflict_policy",
+    "scope_margin_us",
+    "defeat_scope"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "rule": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "check"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "criterion": {
+              "$ref": "common.schema.json#/$defs/text"
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "criterion"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "control"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "criterion": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "expected": {
+              "$ref": "common.schema.json#/$defs/decimal"
+            },
+            "tolerance": {
+              "$ref": "common.schema.json#/$defs/decimal"
+            },
+            "unit": {
+              "$ref": "common.schema.json#/$defs/text"
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "criterion",
+            "expected",
+            "tolerance",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "dependence"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "dimension": {
+              "$ref": "common.schema.json#/$defs/dimension"
+            },
+            "required": {
+              "enum": [
+                "shared",
+                "distinct",
+                "known"
+              ]
+            },
+            "left": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "right": {
+              "$ref": "common.schema.json#/$defs/pin"
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "dimension",
+            "required",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "coverage"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "channel": {
+              "$ref": "common.schema.json#/$defs/channel"
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "channel"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "no_prelock_exposure"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "run_status"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "run": {
+              "$ref": "common.schema.json#/$defs/pin"
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "run"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "selection"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/pin"
+              },
+              "maxItems": 500,
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "items"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "operator": {
+              "const": "body"
+            },
+            "uses": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/use_kind"
+              },
+              "maxItems": 4,
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "artifact": {
+              "$ref": "common.schema.json#/$defs/pin"
+            }
+          },
+          "required": [
+            "id",
+            "operator",
+            "uses",
+            "artifact"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "profile": "https://quaecer.github.io/specs/qualification/1.0/request",
+  "operation": "validate",
+  "policy": {
+    "profile": "urn:example:unknown-policy",
+    "use": {
+      "id": "urn:example:reanalysis",
+      "kind": "computational_reanalysis",
+      "question": "Was the context captured?",
+      "claim": {
+        "id": "urn:example:claim",
+        "digest": "sha256:b0487af7e26ed53ffb4e0d745df451fb61f2868b780fefa0fe237922905d2abd"
+      },
+      "scope": "The declared reconstruction window."
+    },
+    "use_registry_digest": "sha256:857c83b8abfe6adb1844642652bce2f3024e605eda3c6d6f954c51767b4636c5",
+    "subject": {
+      "id": "urn:example:subject",
+      "digest": "sha256:11784d50b5e2873b6ff06bf095c3f3d6ee3f709f0329c0b7528128e6dc87e729"
+    },
+    "implementation": {
+      "id": "urn:example:implementation",
+      "digest": "sha256:2655f6fd25cb68aed8bffd63dc9eda151a0f87f370db3d1cdfacf56e69cecb48"
+    },
+    "window": {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-01-01T00:00:02.123456Z"
+    },
+    "history_scope": {
+      "start": "2026-01-01T00:00:00Z"
+    },
+    "lock_at": "2026-01-01T00:00:02.123456Z",
+    "channels": [
+      "context"
+    ],
+    "forbidden": [],
+    "conflict_policy": "sceptical",
+    "scope_margin_us": 0,
+    "defeat_scope": "segment",
+    "rules": [
+      {
+        "id": "capture",
+        "operator": "coverage",
+        "uses": [
+          "computational_reanalysis"
+        ],
+        "channel": "context"
+      },
+      {
+        "id": "quality",
+        "operator": "check",
+        "uses": [
+          "computational_reanalysis"
+        ],
+        "criterion": "quality"
+      }
+    ]
+  },
+  "evidence": {
+    "profile": "https://quaecer.github.io/specs/qualification/1.0/evidence",
+    "use": "urn:example:reanalysis",
+    "policy_digest": "sha256:1f5d9679e0f29f394da62d8aab18103710e61cb2ef0e7209090aa8f2d19b96d4",
+    "subject": {
+      "id": "urn:example:subject",
+      "digest": "sha256:11784d50b5e2873b6ff06bf095c3f3d6ee3f709f0329c0b7528128e6dc87e729"
+    },
+    "implementation": {
+      "id": "urn:example:implementation",
+      "digest": "sha256:2655f6fd25cb68aed8bffd63dc9eda151a0f87f370db3d1cdfacf56e69cecb48"
+    },
+    "claim": {
+      "id": "urn:example:claim",
+      "digest": "sha256:b0487af7e26ed53ffb4e0d745df451fb61f2868b780fefa0fe237922905d2abd"
+    },
+    "references": [
+      {
+        "id": "urn:example:subject",
+        "digest": "sha256:11784d50b5e2873b6ff06bf095c3f3d6ee3f709f0329c0b7528128e6dc87e729"
+      },
+      {
+        "id": "urn:example:implementation",
+        "digest": "sha256:2655f6fd25cb68aed8bffd63dc9eda151a0f87f370db3d1cdfacf56e69cecb48"
+      },
+      {
+        "id": "urn:example:issuer",
+        "digest": "sha256:4cb6c648296beab587326306052d4a6b61db4399eb0a2562ab49247afdc1bedd"
+      },
+      {
+        "id": "urn:example:claim",
+        "digest": "sha256:b0487af7e26ed53ffb4e0d745df451fb61f2868b780fefa0fe237922905d2abd"
+      },
+      {
+        "id": "urn:example:source",
+        "digest": "sha256:d6a45813c60628f82bbb2681903e6a8f2e672de6c26b69e12ef5b9f54562ac46"
+      }
+    ],
+    "reports": [
+      {
+        "id": "urn:example:quality",
+        "kind": "check",
+        "issuer": {
+          "id": "urn:example:issuer",
+          "digest": "sha256:4cb6c648296beab587326306052d4a6b61db4399eb0a2562ab49247afdc1bedd"
+        },
+        "subject": {
+          "id": "urn:example:subject",
+          "digest": "sha256:11784d50b5e2873b6ff06bf095c3f3d6ee3f709f0329c0b7528128e6dc87e729"
+        },
+        "implementation": {
+          "id": "urn:example:implementation",
+          "digest": "sha256:2655f6fd25cb68aed8bffd63dc9eda151a0f87f370db3d1cdfacf56e69cecb48"
+        },
+        "basis": [
+          {
+            "id": "urn:example:source",
+            "digest": "sha256:d6a45813c60628f82bbb2681903e6a8f2e672de6c26b69e12ef5b9f54562ac46"
+          }
+        ],
+        "criterion": "quality",
+        "state": "not_run",
+        "result": null
+      },
+      {
+        "id": "urn:example:capture",
+        "kind": "completeness",
+        "issuer": {
+          "id": "urn:example:issuer",
+          "digest": "sha256:4cb6c648296beab587326306052d4a6b61db4399eb0a2562ab49247afdc1bedd"
+        },
+        "subject": {
+          "id": "urn:example:subject",
+          "digest": "sha256:11784d50b5e2873b6ff06bf095c3f3d6ee3f709f0329c0b7528128e6dc87e729"
+        },
+        "implementation": {
+          "id": "urn:example:implementation",
+          "digest": "sha256:2655f6fd25cb68aed8bffd63dc9eda151a0f87f370db3d1cdfacf56e69cecb48"
+        },
+        "basis": [
+          {
+            "id": "urn:example:source",
+            "digest": "sha256:d6a45813c60628f82bbb2681903e6a8f2e672de6c26b69e12ef5b9f54562ac46"
+          }
+        ],
+        "observer": "urn:example:issuer",
+        "scope_kind": "capture_window",
+        "channels": [
+          "context"
+        ],
+        "interval": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-01-01T00:00:02.123456Z"
+        },
+        "selection_rule": "all_information_uses",
+        "status": "complete",
+        "clock_id": "urn:example:clock",
+        "accuracy_us": 0,
+        "identity_scheme": "https://quaecer.github.io/specs/qualification/1.0/occurrence/explicit-id",
+        "entries": [],
+        "inventory_digest": null,
+        "segments": [
+          {
+            "id": "urn:example:segment",
+            "interval": {
+              "start": "2026-01-01T00:00:00Z",
+              "end": "2026-01-01T00:00:02.123456Z"
+            },
+            "entries": [],
+            "inventory_digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        ]
+      }
+    ]
+  },
+  "use_registry": {
+    "format": "qualification-use-registry@1",
+    "uses": [
+      "computational_reanalysis",
+      "new_empirical_anchor",
+      "held_out",
+      "prospective_locked"
+    ],
+    "edges": [
+      {
+        "target": "computational_reanalysis",
+        "source": "new_empirical_anchor"
+      },
+      {
+        "target": "computational_reanalysis",
+        "source": "held_out"
+      },
+      {
+        "target": "computational_reanalysis",
+        "source": "prospective_locked"
+      },
+      {
+        "target": "prospective_locked",
+        "source": "held_out"
+      }
+    ],
+    "closure": "reflexive_transitive",
+    "instance_relation": "canonical_semantic_equality"
+  },
+  "caller": {
+    "use": "urn:example:reanalysis",
+    "subject": {
+      "id": "urn:example:subject",
+      "digest": "sha256:11784d50b5e2873b6ff06bf095c3f3d6ee3f709f0329c0b7528128e6dc87e729"
+    },
+    "implementation": {
+      "id": "urn:example:implementation",
+      "digest": "sha256:2655f6fd25cb68aed8bffd63dc9eda151a0f87f370db3d1cdfacf56e69cecb48"
+    },
+    "policy_digest": "sha256:1f5d9679e0f29f394da62d8aab18103710e61cb2ef0e7209090aa8f2d19b96d4",
+    "use_registry_digest": "sha256:857c83b8abfe6adb1844642652bce2f3024e605eda3c6d6f954c51767b4636c5",
+    "report_pins": [
+      {
+        "id": "urn:example:quality",
+        "digest": "sha256:07d2b4ebc9db2b47a44d2054cecfa4d7c5b6b379243b6ffe2ace5024f1ab1a10"
+      },
+      {
+        "id": "urn:example:capture",
+        "digest": "sha256:b4903d36bf553c4b2b755c90e31a62f25d98ba4db09b5f105b951da2498f98b4"
+      }
+    ],
+    "bodies": []
+  }
+}

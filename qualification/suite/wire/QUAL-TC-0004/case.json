@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0004",
+  "description": "Refuse sub-microsecond input.",
+  "requirements": [
+    "QUAL-REQ-003"
+  ],
+  "comparison": "canonical-equal"
+}
