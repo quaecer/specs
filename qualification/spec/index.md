@@ -26,3 +26,7 @@ and then source.
 The [interchange draft](wire.md) documents the evidence and policy schemas,
 the validation operation and the first requirement-linked cases. Assessment
 results, reason terms and their conformance cases are in development.
+
+The [scalar assessment contract](scalar.md) specifies exact request bindings,
+reduction of scalar evidence and receiving verification. Its executable
+examples are in [the assessment suite](../suite/assessment).

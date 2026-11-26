@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse changed bytes for a selected report.","id":"QUAL-TC-0011","requirements":["QUAL-REQ-009"]}

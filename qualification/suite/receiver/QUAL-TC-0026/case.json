@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Verify a full result by reconstructing it from raw observations.","id":"QUAL-TC-0026","requirements":["QUAL-REQ-017"]}

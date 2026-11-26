@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Check exact run revision and distinguish completion status.","id":"QUAL-TC-0018","requirements":["QUAL-REQ-013"]}
