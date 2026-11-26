@@ -1,0 +1,58 @@
+@prefix qual: <https://quaecer.github.io/specs/qualification/1.0/terms/> .
+@prefix earl: <http://www.w3.org/ns/earl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+qual:ResultShape a sh:NodeShape ;
+    sh:targetClass qual:Result ;
+    sh:property [ sh:path qual:profile ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue <https://quaecer.github.io/specs/qualification/1.0/result> ] ;
+    sh:property [ sh:path qual:policy_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:use_registry_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:view_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:use ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:subject ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:PinShape ] ;
+    sh:property [ sh:path qual:implementation ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:PinShape ] ;
+    sh:property [ sh:path qual:clock_compatibility ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("compatible" "incompatible" "unresolved") ] ;
+    sh:property [ sh:path qual:consistency ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("consistent" "inconsistent" "unresolved") ] ;
+    sh:property [ sh:path qual:qualification ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ("prerequisites_satisfied" "prerequisites_failed" "prerequisites_unresolved") ] ;
+    sh:property [ sh:path qual:authorization ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "not_granted" ] ;
+    sh:property [ sh:path qual:findings ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path qual:coverage ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path qual:dependence ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path qual:transfers ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path qual:inconsistencies ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path qual:resolving_sets ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:ReservedResolverShape ] ;
+    sh:property [
+        sh:path ( qual:findings [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ;
+        sh:node qual:FindingShape
+    ] ;
+    sh:or (
+        [ sh:property [ sh:path qual:qualification ;
+            sh:in ( "prerequisites_failed" "prerequisites_unresolved" ) ] ]
+        [ sh:property [ sh:path qual:qualification ; sh:hasValue "prerequisites_satisfied" ] ;
+          sh:property [ sh:path qual:clock_compatibility ; sh:hasValue "compatible" ] ;
+          sh:property [ sh:path qual:consistency ; sh:hasValue "consistent" ] ]
+    ) .
+
+qual:FindingShape a sh:NodeShape ;
+    sh:class earl:TestResult ;
+    sh:property [ sh:path qual:criterion ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:execution ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "evaluated" "not_applicable" "not_run" ) ] ;
+    sh:property [ sh:path qual:value ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "support" "opposition" "both" "neither" ) ] ;
+    sh:property [ sh:path earl:outcome ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( earl:passed earl:failed earl:cantTell earl:inapplicable earl:untested ) ] ;
+    sh:property [ sh:path qual:basis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:reasons ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+qual:PinShape a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:property [ sh:path qual:digest ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^sha256:[0-9a-f]{64}$" ] .
+
+qual:ReservedResolverShape a sh:NodeShape ;
+    sh:property [ sh:path qual:status ; sh:hasValue "not_run" ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:sets ; sh:hasValue rdf:nil ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:search_bound_reached ; sh:hasValue qual:Null ; sh:maxCount 1 ] .

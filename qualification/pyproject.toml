@@ -22,11 +22,13 @@ packages = ["src/quaecer"]
 [tool.hatch.build.targets.wheel.force-include]
 "registry" = "quaecer/spec_qualification/_assets/registry"
 "schema" = "quaecer/spec_qualification/_assets/schema"
+"context" = "quaecer/spec_qualification/_assets/context"
+"shapes" = "quaecer/spec_qualification/_assets/shapes"
 "spec" = "quaecer/spec_qualification/_assets/spec"
 "suite" = "quaecer/spec_qualification/_assets/suite"
 
 [dependency-groups]
-dev = ["jsonschema==4.26.0", "mypy>=1.15,<2", "pre-commit>=4,<5", "pytest>=8,<10", "ruff==0.17.6"]
+dev = ["jsonschema==4.26.0", "pyshacl==0.30.1", "rdflib==7.6.0", "mypy>=1.15,<2", "pre-commit>=4,<5", "pytest>=8,<10", "ruff==0.17.6"]
 
 [tool.ruff]
 line-length = 100
