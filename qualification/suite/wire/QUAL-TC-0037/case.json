@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a malformed percent escape in an identity.","id":"QUAL-TC-0037","requirements":["QUAL-REQ-021"]}
