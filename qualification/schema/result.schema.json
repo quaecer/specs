@@ -539,6 +539,15 @@
           "maxItems": 2000,
           "minItems": 0,
           "uniqueItems": true
+        },
+        "joint_omissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/joint_omission"
+          },
+          "maxItems": 1000,
+          "minItems": 0,
+          "uniqueItems": true
         }
       },
       "required": [
@@ -546,7 +555,8 @@
         "gaps",
         "defeated",
         "statements",
-        "reasons"
+        "reasons",
+        "joint_omissions"
       ]
     },
     "coverage": {
@@ -631,6 +641,74 @@
         "relation",
         "reports",
         "basis"
+      ]
+    },
+    "joint_omission": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lower": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "upper": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "report_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "defeat_scope": {
+          "enum": [
+            "segment",
+            "statement",
+            "observer_channel",
+            "observer"
+          ]
+        },
+        "defeated_units": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "unit": {
+                "$ref": "common.schema.json#/$defs/iri"
+              },
+              "channel": {
+                "$ref": "common.schema.json#/$defs/channel"
+              }
+            },
+            "required": [
+              "unit",
+              "channel"
+            ]
+          },
+          "maxItems": 500,
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "lower",
+        "upper",
+        "report_ids",
+        "unit_ids",
+        "defeat_scope",
+        "defeated_units"
       ]
     }
   }

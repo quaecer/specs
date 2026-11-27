@@ -352,6 +352,14 @@
       {
         "id": "QUAL-TC-0035",
         "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0050",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0051",
+        "polarity": "negative"
       }
     ]
   },
@@ -373,6 +381,106 @@
       {
         "id": "QUAL-TC-0038",
         "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-022",
+    "text": "A selected capture MUST bind the canonical ordered inventory of every committed unit and its exact partition before evaluation.",
+    "section": "spec/coverage-requirements.md#qual-req-022",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0039",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0041",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0045",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0046",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0047",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-023",
+    "text": "Coverage MUST merge nominal scopes on the same clock before subtracting its bounded error and policy margin, and MUST union different clocks only after erosion.",
+    "section": "spec/coverage-requirements.md#qual-req-023",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0039",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0040",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0048",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-024",
+    "text": "An accepted exposure MUST defeat the eligible candidate units when its closed range is entirely within their certain union, with typed units and a separately evaluated forbidden exposure.",
+    "section": "spec/coverage-requirements.md#qual-req-024",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0042",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0043",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0046",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0049",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0050",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0051",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-025",
+    "text": "An overlapping, opposing capture status MUST defeat a complete unit only for the same observer, on a shared channel and within their certain overlap.",
+    "section": "spec/coverage-requirements.md#qual-req-025",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0039",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0044",
+        "polarity": "positive"
       }
     ]
   }

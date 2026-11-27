@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Equal nominal boundaries on different clocks leave a real coverage gap.","id":"QUAL-TC-0040","requirements":["QUAL-REQ-023"]}

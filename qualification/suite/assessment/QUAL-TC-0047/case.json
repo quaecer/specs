@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse committed segments with a gap in the parent partition.","id":"QUAL-TC-0047","requirements":["QUAL-REQ-022"]}

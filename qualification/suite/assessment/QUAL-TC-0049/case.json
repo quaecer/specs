@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A definitely omitted event straddles the lock, so its forbidden timing is unproved.","id":"QUAL-TC-0049","requirements":["QUAL-REQ-024"]}
