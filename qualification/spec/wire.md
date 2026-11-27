@@ -5,6 +5,11 @@ JSON response on standard output. No retrieval is needed to interpret the
 request. Reports are supplied by value. A revision pin pairs a linked
 record's identifier and digest.
 
+The limit is 2 MiB (2,097,152 bytes) for the entire encoded UTF-8 request,
+including whitespace, Base64 bodies, and any nested assessment, transfer,
+result or RDF frame. The byte at the limit is allowed. A larger input
+returns exactly `{"status":"invalid"}` before JSON decoding.
+
 - [Request](../schema/request.schema.json) includes the policy, use registry,
   raw evidence and caller context. The `validate` operation checks wire
   structure and replies with exactly `{"status":"valid"}` or
@@ -56,6 +61,13 @@ tell respectively. Execution can separately mark a criterion inapplicable
 or untested. The [reason registry](../registry/reasons.json) fixes the draft
 labels used to describe the basis.
 
+Reason emission follows each operator's evidence rules. There is no
+universal rule requiring every advisory about a missing body or an
+unselected report to accompany every outcome. The result preserves
+independently established violations and reports missing bodies when
+the relevant criterion depends on them. A reason's basis can include
+corroborating inputs in addition to decisive ones.
+
 A positive qualification requires an exact compatible clock result,
 consistent accepted evidence, at least one passed criterion, and passed
 outcomes on every applicable criterion. A definite failed criterion gives
@@ -64,7 +76,10 @@ The result always carries `authorization: not_granted`.
 
 Coverage has separate window and history compositions. Each retains
 covered regions, gaps, defeated regions, the involved commitments and
-structured joint omission witnesses. See [committed coverage](coverage.md).
+structured joint omission witnesses. Same-clock support rows retain the
+clock, observers, nominal scope, uncertainty and applied erosion. Typed
+calibration and occurrence premises appear once in `clock_constraints`.
+See [committed coverage](coverage.md) and [exact clocks](clock.md).
 Dependence has a dimension, exact comparison, relation and retained
 basis. [Transfer records](transfer.md) bind both policies,
 the common view and registry, and exact source finding and criterion digests.

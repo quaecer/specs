@@ -49,6 +49,7 @@ def _result():
         "authorization": "not_granted",
         "findings": [fact],
         "coverage": [],
+        "clock_constraints": [],
         "dependence": [],
         "inconsistencies": [],
         "transfers": [],
@@ -148,5 +149,33 @@ def test_result_rdf_preserves_required_fields_and_ordered_outcomes():
         earl.untested,
     ]
     graph.remove((root, qual.view_digest, None))
+    conforms, _, _ = validate(graph, shacl_graph=shapes)
+    assert not conforms
+
+
+def test_clock_basis_and_support_survive_the_rdf_projection():
+    from pyshacl import validate
+    from rdflib import RDF, Graph, Literal, Namespace
+    from rdflib.collection import Collection
+
+    path = ROOT / "suite/receiver/QUAL-TC-0087/input.json"
+    frame = json.loads(path.read_bytes())["result"]
+    qual = Namespace(BASE + "terms/")
+    graph = Graph().parse(data=json.dumps(frame), format="json-ld")
+    shapes = Graph().parse(ROOT / "shapes/result.ttl", format="turtle")
+    conforms, _, report = validate(graph, shacl_graph=shapes)
+    assert conforms, report
+    root = graph.value(predicate=RDF.type, object=qual.Result)
+    head = graph.value(root, qual.clock_constraints)
+    premises = list(Collection(graph, head))
+    assert [str(graph.value(node, qual.kind)) for node in premises] == [
+        "capture_accuracy",
+        "capture_accuracy",
+        "event_utc",
+    ]
+    calibration = next(
+        node for node in premises if graph.value(node, qual.accuracy_us) == Literal(0)
+    )
+    graph.remove((calibration, qual.clock_id, None))
     conforms, _, _ = validate(graph, shacl_graph=shapes)
     assert not conforms

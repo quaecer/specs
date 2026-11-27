@@ -7,6 +7,27 @@ import shlex
 import subprocess
 from pathlib import Path
 
+from quaecer.spec_qualification import MAX_REQUEST_BYTES
+
+
+def check_request_size(command: tuple[str, ...], suite: Path, receiver: bool) -> None:
+    """Check the inclusive encoded-byte bound through the installed process interface."""
+    cases = [suite / "wire/QUAL-TC-0001", suite / "assessment/QUAL-TC-0071"]
+    if receiver:
+        cases.extend((suite / "receiver/QUAL-TC-0026", suite / "receiver/QUAL-TC-0032"))
+    for case in cases:
+        value = json.loads((case / "input.json").read_bytes())
+        if value.get("operation") == "validate":
+            value["policy"]["use"]["scope"] = "Evidence scope µ"
+        raw = json.dumps(value, ensure_ascii=False).encode("utf-8")
+        padded = raw.ljust(MAX_REQUEST_BYTES, b" ")
+        expected = json.loads((case / "expected.json").read_bytes())
+        for request, outcome in ((padded, expected), (padded + b" ", {"status": "invalid"})):
+            response = subprocess.check_output(command, input=request, timeout=30)
+            if json.loads(response) != outcome:
+                name = Path(command[0]).name
+                raise SystemExit(f"{name} {case.name} failed the request byte bound")
+
 
 def main() -> None:
     """Run the installed evaluators and verify the resulting report manifest."""
@@ -44,6 +65,9 @@ def main() -> None:
         commands.extend(
             (command, "qualref", section) for section in ("wire", "assessment", "receiver")
         )
+    for command, name, section in commands:
+        if section == "wire":
+            check_request_size(command, suite, receiver=name != "qualifier")
     for command, name, section in commands:
         label = f"{name}-{section}"
         report = label + ".ttl"

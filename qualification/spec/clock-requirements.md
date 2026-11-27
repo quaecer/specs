@@ -5,7 +5,7 @@ The capitalized key word MUST follows [BCP 14](https://www.rfc-editor.org/info/b
 <a id="qual-req-026"></a>
 ## QUAL-REQ-026 Exact clock compatibility
 
-An assessment MUST check the joint continuous-time constraints of resolved accepted premises, including shared readings and strict half-open omission boundaries.
+An assessment MUST check the joint continuous-time constraints of resolved accepted premises, including shared readings and strict half-open omission boundaries, and retain typed positive clock premises with exact source pins.
 
 <a id="qual-req-027"></a>
 ## QUAL-REQ-027 Committed event readings

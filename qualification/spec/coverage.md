@@ -34,13 +34,11 @@ the unit. Equal clock identifiers share that function. These premises are
 conditional on the accepted declarations. Exposure intervals already give
 closed true-time bounds.
 
-At each known error bound among eligible units of one clock, merge the
-overlapping and adjacent nominal intervals of units with error at most that
-bound. Erode the merged intervals by that bound at both ends to recover
-certain true-time intervals. For positive coverage also apply the policy
-margin as a minimum erosion. Union these intervals across bounds and
-clocks after erosion. Distinct clocks have no shared boundary. Erosion
-discards empty ranges.
+Eligible units have declared accuracy at most the policy margin. Merge
+their overlapping and adjacent nominal intervals on the same clock,
+then erode each merged interval by the margin at both ends. Union these
+intervals across clocks after erosion. Distinct clocks have no shared
+boundary. Erosion discards empty ranges.
 
 Compatibility uses the complete accepted clock formula. Region composition
 uses the guaranteed intervals under the declared policy margin.
@@ -61,9 +59,21 @@ units' possible regions separately, so those regions can overlap with
 support from a surviving unit. When no completeness report is selected,
 the result has an empty coverage list.
 
+Each `supports` row describes one same-clock contribution prior to
+cross-clock union. It retains its merged nominal `lower` and `upper`
+bounds, `clock_id`, maximum declared `accuracy_us`, actual `erosion_us`,
+and lexically sorted distinct `observers` and `unit_ids`. The row's
+`interval` is the guaranteed contribution clipped to the required
+interval. Per-unit uncertainties and exact report pins resolve through
+`capture_accuracy` records in the result's `clock_constraints`. The
+union of the support intervals is exactly `covered`. Calibration can
+affect compatibility and defeat. It cannot widen these support intervals
+past the policy-margin calculation.
+
 The compositions retain accepted statement pins, structured reasons and
 `joint_omissions`. Each omission records the event's closed range, its
-accepted occurrence report IDs, the candidate unit IDs, the policy defeat
+accepted occurrence report IDs, the resolved `occurrence`, the
+`clock_constraints_digest`, the candidate unit IDs, the policy defeat
 scope and the affected unit/channel pairs. Witnesses for a channel appear
 in both compositions even when their effect lies outside one requested
 interval. Statement pins and unit/report identifiers sort lexically.

@@ -50,8 +50,10 @@ def test_joint_omission_witness_survives_rdf_projection() -> None:
     assert ok, report
 
     qual = Namespace("https://quaecer.github.io/specs/qualification/1.0/terms/")
-    assert len(set(graph.subjects(qual["lower"]))) == 2
-    graph.remove((None, qual.unit, None))
+    witnesses = set(graph.subjects(qual.clock_constraints_digest))
+    assert len(witnesses) == 2
+    assert all(graph.value(witness, qual["lower"]) is not None for witness in witnesses)
+    graph.remove((next(iter(witnesses)), qual.clock_constraints_digest, None))
     ok, _, _ = validate(graph, shacl_graph=rules)
     assert not ok
 

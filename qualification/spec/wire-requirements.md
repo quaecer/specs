@@ -29,9 +29,9 @@ A report MUST include its identity, issuer, exact subject, implementation and no
 A segmented statement MUST use an empty parent inventory and null parent digest.
 
 <a id="qual-req-006"></a>
-## QUAL-REQ-006 Caller selection
+## QUAL-REQ-006 Bounded request and caller selection
 
-The request MUST supply caller report pins and artifact bodies as explicit arrays.
+The complete UTF-8 request MUST occupy at most 2,097,152 bytes, and MUST supply caller report pins and artifact bodies as explicit arrays.
 
 <a id="qual-req-007"></a>
 ## QUAL-REQ-007 Unrun observation
