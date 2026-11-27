@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A nominal left-edge event may lie outside the translated scope. Without a clock assignment or contradiction, compatibility stays unresolved.","id":"QUAL-TC-0043","requirements":["QUAL-REQ-024"]}

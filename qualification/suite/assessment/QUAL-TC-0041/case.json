@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a selected report whose inventory bytes do not match its commitment.","id":"QUAL-TC-0041","requirements":["QUAL-REQ-022"]}

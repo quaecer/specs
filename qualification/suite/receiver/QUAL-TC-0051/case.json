@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A framed witness whose event bound differs from the recomputation must be refused.","id":"QUAL-TC-0051","requirements":["QUAL-REQ-020","QUAL-REQ-024"]}

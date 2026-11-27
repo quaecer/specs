@@ -33,3 +33,6 @@ examples are in [the assessment suite](../suite/assessment).
 
 The [exposure contract](exposure.md) handles closed true-time ranges, accepted
 alias closure and the half-open pre-lock boundary.
+
+The [committed coverage contract](coverage.md) composes empty inventories
+on nominal clocks and records joint omission and defeat.

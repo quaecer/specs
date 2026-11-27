@@ -18,9 +18,10 @@ member ranges. An empty intersection is incompatible and cites the
 contributing report IDs. If every accepted temporal premise is an exposure
 with resolved identity and time bounds, these intersections decide
 compatibility exactly. An exposure permits any occurrence time in its
-intersection, independently of other events. Missing bindings or accepted
-capture and challenge records require the wider clock translation and leave
-compatibility unresolved unless an exact contradiction is already witnessed.
+intersection, independently of other events. The [coverage contract](coverage.md)
+includes the compatible exposure ranges when checking selected commitments.
+Missing bindings and uncompiled temporal premises leave compatibility
+unresolved unless a contradiction is already witnessed.
 
 A forbidden occurrence opposes absence when its resource pin and channel
 match policy and the full range is contained in
@@ -30,8 +31,7 @@ reports of that occurrence. For an empty intersection, keep any direct
 in-scope observation as opposition, citing only that direct report.
 An incompatible clock does not prove a violation on its own.
 
-An absence criterion without a definite violation remains unresolved
-until supported by committed coverage. The current issues and findings
-are independent of the deferred full coverage compositions.
+An absence criterion without a definite violation requires committed
+coverage over the full required history for every policy channel.
 
 See [the linked requirements](exposure-requirements.md).
