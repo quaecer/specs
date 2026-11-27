@@ -1,6 +1,7 @@
 name: ci
 on:
   pull_request:
+    types: [opened, synchronize, reopened, edited]
   push:
     branches: [main]
   workflow_dispatch:
@@ -90,4 +91,5 @@ jobs:
       env:
         GATE_PATTERNS_HARD: ${{ secrets.GATE_PATTERNS_HARD }}
         GATE_PATTERNS_REVIEW: ${{ secrets.GATE_PATTERNS_REVIEW }}
+        GATE_REQUIRE_PR_ID: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       run: tools/gate.sh

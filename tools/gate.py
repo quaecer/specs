@@ -6,11 +6,17 @@ import json
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path, PurePosixPath
 
 LICENSE_SHA256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
 MAX_BLOB_BYTES = 5 * 1024 * 1024
-SUBJECT = re.compile(rb"[a-z0-9][a-z0-9 ._-]{0,49}")
+LEGACY_SUBJECT = re.compile(rb"[a-z0-9][a-z0-9 ._-]{0,49}")
+CONVENTIONAL_SUBJECT = re.compile(
+    r"[a-z][a-z0-9-]*(?:\([a-z0-9][a-z0-9._/-]*\))?!?: \S(?:.*\S)?",
+    re.ASCII | re.IGNORECASE,
+)
+PR_SUFFIX = re.compile(rb" \(#[1-9][0-9]*\)$")
 IDENTITY = re.compile(rb"(?:[^@\s]+@users\.noreply\.github\.com|noreply@github\.com)")
 
 
@@ -39,11 +45,29 @@ def blocked_path(path: str) -> bool:
     )
 
 
+def conventional_subject(message: bytes) -> bool:
+    """Check a single UTF-8 commit subject with a Conventional Commits prefix."""
+    try:
+        subject = message.removesuffix(b"\n").decode("utf-8")
+    except UnicodeDecodeError:
+        return False
+    return subject.isprintable() and CONVENTIONAL_SUBJECT.fullmatch(subject) is not None
+
+
 def main() -> int:
+    if len(sys.argv) == 3 and sys.argv[1] == "--check-subject":
+        if conventional_subject(Path(sys.argv[2]).read_bytes()):
+            return 0
+        print("expected one Conventional Commit subject, e.g. feat: add export")
+        return 1
+
     os.chdir(os.fsdecode(git("rev-parse", "--show-toplevel").rstrip(b"\n")))
     hard = patterns("GATE_PATTERNS_HARD")
     review = patterns("GATE_PATTERNS_REVIEW")
     findings: set[tuple[str, str]] = set()
+    squash = None
+    if os.environ.get("GATE_REQUIRE_PR_ID") == "true":
+        squash = git("rev-parse", "HEAD").decode("ascii").strip()
 
     def scan(raw: bytes, key: str) -> None:
         content = raw.decode("utf-8", errors="replace")
@@ -60,11 +84,17 @@ def main() -> int:
         if len(emails) != 2 or any(not IDENTITY.fullmatch(email) for email in emails):
             findings.add(("unexpected email identity", rev))
         msg = body.removesuffix(b"\n")
-        if not SUBJECT.fullmatch(msg) or msg.endswith((b".", b" ")):
+        conventional = conventional_subject(body)
+        legacy = LEGACY_SUBJECT.fullmatch(msg) and not msg.endswith((b".", b" "))
+        pr_suffix = PR_SUFFIX.search(msg) if conventional else None
+        if rev == squash and pr_suffix is None:
+            findings.add(("expected a conventional squash subject with a PR number", rev))
+        elif not conventional and not legacy:
             findings.add(("invalid commit message", rev))
         if sum(line.startswith(b"parent ") for line in metadata.splitlines()) > 1:
             findings.add(("nonlinear history", rev))
-        scan(body, rev)
+        # The final PR number is GitHub metadata. Scan all other subject text.
+        scan(msg[: pr_suffix.start()] if pr_suffix else body, rev)
         entries = git("ls-tree", "-rz", rev).split(b"\0")
         license_found = False
         for entry in filter(None, entries):
