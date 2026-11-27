@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a changed calibration error even when its witness digest was recomputed.","id":"QUAL-TC-0088","requirements":["QUAL-REQ-020","QUAL-REQ-026"]}

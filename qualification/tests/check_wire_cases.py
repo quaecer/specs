@@ -9,6 +9,8 @@ from check_traceability import ROOT, _unique, check, read
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
+from quaecer.spec_qualification import MAX_REQUEST_BYTES
+
 
 def _validator(name: str = "request") -> Draft202012Validator:
     schemas = [read(path) for path in sorted((ROOT / "schema").glob("*.schema.json"))]
@@ -28,7 +30,7 @@ def main() -> None:
     args = parser.parse_args()
     validator = _validator()
     if args.serve:
-        limit = 2 * 1024 * 1024
+        limit = MAX_REQUEST_BYTES
         raw = sys.stdin.buffer.read(limit + 1)
         valid = False
         if len(raw) <= limit:

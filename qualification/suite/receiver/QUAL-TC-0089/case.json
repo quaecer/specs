@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a changed coverage observer in the received RDF result.","id":"QUAL-TC-0089","requirements":["QUAL-REQ-020","QUAL-REQ-023"]}

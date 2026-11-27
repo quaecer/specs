@@ -19,6 +19,9 @@ half-open, including their start and excluding their end.
   with the same event identifier binds the exact usage digest, channel,
   resource and occurrence identity. Different reporters may describe
   different timing intervals for the same occurrence.
+- An observation supplies a closed bracket when its reading and both
+  uncertainty bounds are known and both endpoints are representable.
+  A partial bracket leaves timing unresolved and supplies no clock bound.
 - A reference resolves to a selected exposure or to an event described by
   a selected typed entry. Its channel belongs to the committed unit.
   A valid reference lists the occurrence and adds no reading. A missing
@@ -74,9 +77,38 @@ Missing bounds, unresolved identities and an incomplete bounded search
 leave `unresolved` unless a contradiction is established. Expose the
 accepted premise set with `clock_incompatible`, or report a bounded
 `omitted_event` witness when the omission constraints for one occurrence
-are sufficient. A global contradiction across multiple occurrences still
-blocks qualification. The clock decision and non-clock inconsistencies
+are sufficient. The profile requires a sound incompatibility decision
+and does not require enumeration of every witness or a minimal
+unsatisfiable subset. When the joint formula is unsatisfiable and no
+single-occurrence explanation is established, emit `clock_incompatible`.
+This includes contradictions that require several occurrences and search
+limits reached while explaining an already established contradiction.
+It is evidence of incompatibility and blocks qualification even with no
+localized defeat record. The clock decision and non-clock inconsistencies
 are separate.
+
+### Positive clock premises
+
+The result MUST retain the records that contribute bounds to the positive
+formula, including a looser declaration subsumed by a tighter one. The
+records have an exact accepted `report` pin, and closed `lower` and `upper`
+bounds in normalized UTC spelling. The kind determines their meaning.
+
+| Kind | Coordinates | Source and interpretation |
+| --- | --- | --- |
+| `capture_accuracy` | Nominal on `clock_id` | The `unit` and `observer` declare `accuracy_us` across these readings. Partial or disabled captures can contribute this premise. |
+| `entry_clock` | Nominal on `clock_id` | The typed `event_id` in the parent report's `unit` lies between these readings, with `accuracy_us` applied by the parent. |
+| `event_utc` | True UTC | An exposure report bounds the event directly. The reporter's named clock supplies no further constraint. |
+
+For each event premise, `occurrence` is the lexically first event
+identifier in its resolved group, so direct and typed-entry bounds for
+that occurrence join even when their source identifiers differ. The
+compiled monotonicity edges follow from clock identity and readings,
+and do not need additional source records. Sort and deduplicate the
+array by RFC 8785 bytes. A witness's `clock_constraints_digest` is the
+SHA-256 digest of that canonical array. It binds all positive premises
+available to the query, including any cross-channel calibrators. It
+does not assert that every retained premise was necessary.
 
 A capture challenge is a selected assertion with a bound witness pin and
 a true-time interval. A capture challenge selects a channel and observer,

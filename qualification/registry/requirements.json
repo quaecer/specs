@@ -86,7 +86,7 @@
   },
   {
     "id": "QUAL-REQ-006",
-    "text": "The request MUST supply caller report pins and artifact bodies as explicit arrays.",
+    "text": "The complete UTF-8 request MUST occupy at most 2,097,152 bytes, and MUST supply caller report pins and artifact bodies as explicit arrays.",
     "section": "spec/wire-requirements.md#qual-req-006",
     "introduced_in": "1.0",
     "modified_in": "1.0",
@@ -360,6 +360,18 @@
       {
         "id": "QUAL-TC-0051",
         "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0087",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0088",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0089",
+        "polarity": "negative"
       }
     ]
   },
@@ -415,7 +427,7 @@
   },
   {
     "id": "QUAL-REQ-023",
-    "text": "Coverage MUST merge nominal scopes on the same clock before subtracting its bounded error and policy margin, and MUST union different clocks only after erosion.",
+    "text": "Coverage MUST merge nominal scopes on the same clock before applying margin erosion, retain each contributing clock bound and observer, and union different clocks only after erosion.",
     "section": "spec/coverage-requirements.md#qual-req-023",
     "introduced_in": "1.0",
     "modified_in": "1.0",
@@ -431,12 +443,16 @@
       {
         "id": "QUAL-TC-0048",
         "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0089",
+        "polarity": "negative"
       }
     ]
   },
   {
     "id": "QUAL-REQ-024",
-    "text": "An accepted exposure MUST defeat the eligible candidate units when its closed range is entirely within their certain union, with typed units and a separately evaluated forbidden exposure.",
+    "text": "An established omission witness MUST defeat the candidate units at the committed granularity, identify the affected units and bind the positive clock premises; forbidden exposure MUST be evaluated separately.",
     "section": "spec/coverage-requirements.md#qual-req-024",
     "introduced_in": "1.0",
     "modified_in": "1.0",
@@ -486,7 +502,7 @@
   },
   {
     "id": "QUAL-REQ-026",
-    "text": "An assessment MUST check the joint continuous-time constraints of resolved accepted premises, including shared readings and strict half-open omission boundaries.",
+    "text": "An assessment MUST check the joint continuous-time constraints of resolved accepted premises, including shared readings and strict half-open omission boundaries, and retain typed positive clock premises with exact source pins.",
     "section": "spec/clock-requirements.md#qual-req-026",
     "introduced_in": "1.0",
     "modified_in": "1.0",
@@ -510,6 +526,22 @@
       {
         "id": "QUAL-TC-0077",
         "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0085",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0086",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0087",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0088",
+        "polarity": "negative"
       }
     ]
   },

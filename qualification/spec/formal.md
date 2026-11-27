@@ -187,10 +187,10 @@ commitment. Compute violations and consistency independently of one another.
 ### Coverage composition
 
 For channel `c` keep eligible, undefeated units on that channel. Within a
-clock family, form the nominal union of units at each admitted accuracy
-bound `d` using units with `δᵤ ≤ d`. For each connected component `[a,b)`
-of this union use the nonempty interval `[a + max(d,m), b − max(d,m))`.
-Union these intervals across the layers and clocks to obtain `C(c,x)`.
+clock family, form the nominal union of its units. Eligibility gives
+`δᵤ ≤ m` for every unit. For each connected component `[a,b)` of that
+union use the nonempty interval `[a + m, b − m)`. Union these intervals
+across the clocks to obtain `C(c,x)`.
 For a required interval `R`, covered regions are `C(c,x) ∩ R` and gaps are
 `R \ C(c,x)`. The possible regions of defeated units are reported separately
 and may overlap surviving coverage.

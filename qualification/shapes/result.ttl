@@ -19,6 +19,7 @@ qual:ResultShape a sh:NodeShape ;
     sh:property [ sh:path qual:authorization ; sh:minCount 1 ; sh:maxCount 1 ; sh:hasValue "not_granted" ] ;
     sh:property [ sh:path qual:findings ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
     sh:property [ sh:path qual:coverage ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path qual:clock_constraints ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
     sh:property [ sh:path qual:dependence ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
     sh:property [ sh:path qual:transfers ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
     sh:property [ sh:path qual:inconsistencies ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI ] ;
@@ -35,6 +36,10 @@ qual:ResultShape a sh:NodeShape ;
     sh:property [
         sh:path ( qual:transfers [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
         sh:node qual:TransferShape
+    ] ;
+    sh:property [
+        sh:path ( qual:clock_constraints [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:node qual:ClockConstraintShape
     ] ;
     sh:or (
         [ sh:property [ sh:path qual:qualification ;
@@ -65,6 +70,7 @@ qual:ChannelCoverageShape a sh:NodeShape ;
 
 qual:CompositionShape a sh:NodeShape ;
     sh:property [ sh:path qual:covered ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:supports ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path qual:gaps ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path qual:defeated ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path qual:statements ; sh:minCount 1 ; sh:maxCount 1 ] ;
@@ -73,11 +79,61 @@ qual:CompositionShape a sh:NodeShape ;
     sh:property [
         sh:path ( qual:joint_omissions [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
         sh:node qual:JointOmissionShape
+    ] ;
+    sh:property [
+        sh:path ( qual:supports [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:node qual:CoverageSupportShape
     ] .
 
-qual:JointOmissionShape a sh:NodeShape ;
+qual:TimeBoundsShape a sh:NodeShape ;
     sh:property [ sh:path qual:lower ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
-    sh:property [ sh:path qual:upper ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path qual:upper ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+qual:ClockAccuracyShape a sh:NodeShape ;
+    sh:property [ sh:path qual:clock_id ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:accuracy_us ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:integer ; sh:minInclusive 0 ] .
+
+qual:OccurrenceShape a sh:NodeShape ;
+    sh:property [ sh:path qual:event_id ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:occurrence ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] .
+
+qual:ClockConstraintShape a sh:NodeShape ;
+    sh:node qual:TimeBoundsShape ;
+    sh:property [ sh:path qual:report ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:PinShape ] ;
+    sh:property [ sh:path qual:kind ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:xone (
+        [ sh:property [ sh:path qual:kind ; sh:hasValue "capture_accuracy" ] ;
+          sh:node qual:ClockAccuracyShape ;
+          sh:property [ sh:path qual:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+          sh:property [ sh:path qual:observer ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ]
+        [ sh:property [ sh:path qual:kind ; sh:hasValue "entry_clock" ] ;
+          sh:node qual:ClockAccuracyShape ;
+          sh:node qual:OccurrenceShape ;
+          sh:property [ sh:path qual:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ]
+        [ sh:property [ sh:path qual:kind ; sh:hasValue "event_utc" ] ;
+          sh:node qual:OccurrenceShape ]
+    ) .
+
+qual:CoverageSupportShape a sh:NodeShape ;
+    sh:node qual:TimeBoundsShape ;
+    sh:node qual:ClockAccuracyShape ;
+    sh:property [ sh:path qual:erosion_us ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path qual:interval ; sh:minCount 1 ; sh:maxCount 1 ; sh:node [
+        sh:property [ sh:path qual:start ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+        sh:property [ sh:path qual:end ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ]
+    ] ] ;
+    sh:property [ sh:path ( qual:observers [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path ( qual:unit_ids [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ; sh:nodeKind sh:IRI ] .
+
+qual:JointOmissionShape a sh:NodeShape ;
+    sh:node qual:TimeBoundsShape ;
+    sh:property [ sh:path qual:occurrence ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:clock_constraints_digest ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
     sh:property [ sh:path qual:defeat_scope ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:in ( "segment" "statement" "observer_channel" "observer" ) ] ;
     sh:property [
