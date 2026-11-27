@@ -564,6 +564,10 @@
       {
         "id": "QUAL-TC-0045",
         "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0084",
+        "polarity": "negative"
       }
     ]
   },
