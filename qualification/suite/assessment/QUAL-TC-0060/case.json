@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"An alias cannot identify two distinct canonical occurrence IDs.","id":"QUAL-TC-0060","requirements":["QUAL-REQ-028"]}

@@ -81,7 +81,7 @@
       "items": {
         "$ref": "#/$defs/reason"
       },
-      "maxItems": 2000,
+      "maxItems": 5000,
       "minItems": 0,
       "uniqueItems": true
     },
@@ -280,7 +280,9 @@
             "omitted_event",
             "forbidden_exposure",
             "clock_incompatible",
-            "clock_unresolved"
+            "clock_unresolved",
+            "possible_exposure",
+            "capture_challenge"
           ]
         },
         "report_ids": {
@@ -536,7 +538,7 @@
           "items": {
             "$ref": "#/$defs/reason"
           },
-          "maxItems": 2000,
+          "maxItems": 3000,
           "minItems": 0,
           "uniqueItems": true
         },
@@ -545,7 +547,7 @@
           "items": {
             "$ref": "#/$defs/joint_omission"
           },
-          "maxItems": 1000,
+          "maxItems": 1500,
           "minItems": 0,
           "uniqueItems": true
         }
