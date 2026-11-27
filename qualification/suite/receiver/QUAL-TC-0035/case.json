@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse nested JSON-LD directives in a report.","id":"QUAL-TC-0035","requirements":["QUAL-REQ-020"]}

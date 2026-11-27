@@ -2,5 +2,6 @@
 """Versioned specifications, schemas and conformance cases."""
 
 from .assets import context, registry, schema, shape, suite_path
+from .projection import project
 
-__all__ = ["context", "registry", "schema", "shape", "suite_path"]
+__all__ = ["context", "project", "registry", "schema", "shape", "suite_path"]

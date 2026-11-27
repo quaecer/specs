@@ -58,9 +58,18 @@ def main() -> None:
     print(json.dumps({"requirements": len(matrix), "wire_cases": len(expected_cases)}))
     response = _validator("response")
     verification = _validator("verification-request")
-    for name, input_validator in (("assessment", validator), ("receiver", verification)):
+    rdf_verification = _validator("rdf-verification-request")
+    rdf_profile = rdf_verification.schema["properties"]["profile"]["const"]
+    for name in ("assessment", "receiver"):
         for directory in sorted((ROOT / "suite" / name).iterdir()):
-            input_validator.validate(read(directory / "input.json"))
+            document = read(directory / "input.json")
+            if name == "assessment":
+                input_validator = validator
+            else:
+                input_validator = (
+                    rdf_verification if document["profile"] == rdf_profile else verification
+                )
+            input_validator.validate(document)
             response.validate(read(directory / "expected.json"))
 
 
