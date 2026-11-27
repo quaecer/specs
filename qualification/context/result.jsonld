@@ -91,6 +91,12 @@
     },
     "upper": {
       "@type": "xsd:dateTime"
+    },
+    "source_use": {
+      "@type": "@id"
+    },
+    "target_use": {
+      "@type": "@id"
     }
   }
 }

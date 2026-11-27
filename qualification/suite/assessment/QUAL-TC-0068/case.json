@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse different accepted reports even with an otherwise valid source and target binding.","id":"QUAL-TC-0068","requirements":["QUAL-REQ-031"]}

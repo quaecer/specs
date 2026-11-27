@@ -13,12 +13,19 @@
       "const": "https://quaecer.github.io/specs/qualification/1.0/verification-request"
     },
     "request": {
-      "$ref": "request.schema.json",
-      "properties": {
-        "operation": {
-          "const": "assess"
+      "oneOf": [
+        {
+          "$ref": "request.schema.json",
+          "properties": {
+            "operation": {
+              "const": "assess"
+            }
+          }
+        },
+        {
+          "$ref": "transfer-request.schema.json"
         }
-      }
+      ]
     },
     "result": {
       "$ref": "result.schema.json"

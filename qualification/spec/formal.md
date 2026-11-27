@@ -1,6 +1,7 @@
 # Formal semantics
 
-The [coverage](coverage.md) and [clock](clock.md) contracts define the wire rules.
+The [coverage](coverage.md), [clock](clock.md) and [transfer](transfer.md)
+contracts define the wire rules.
 
 ## Use order and transfer
 

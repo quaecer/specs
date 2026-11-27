@@ -32,6 +32,10 @@ qual:ResultShape a sh:NodeShape ;
         sh:path ( qual:coverage [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
         sh:node qual:ChannelCoverageShape
     ] ;
+    sh:property [
+        sh:path ( qual:transfers [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:node qual:TransferShape
+    ] ;
     sh:or (
         [ sh:property [ sh:path qual:qualification ;
             sh:in ( "prerequisites_failed" "prerequisites_unresolved" ) ] ]
@@ -39,6 +43,18 @@ qual:ResultShape a sh:NodeShape ;
           sh:property [ sh:path qual:clock_compatibility ; sh:hasValue "compatible" ] ;
           sh:property [ sh:path qual:consistency ; sh:hasValue "consistent" ] ]
     ) .
+
+qual:TransferShape a sh:NodeShape ;
+    sh:property [ sh:path qual:source_use ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:target_use ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:source_criterion ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path qual:target_criterion ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path qual:criterion_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:source_finding_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:source_policy_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:target_policy_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:view_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:use_registry_digest ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^sha256:[0-9a-f]{64}$" ] .
 
 qual:ChannelCoverageShape a sh:NodeShape ;
     sh:property [ sh:path qual:channel ; sh:minCount 1 ; sh:maxCount 1 ] ;

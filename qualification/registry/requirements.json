@@ -612,5 +612,165 @@
         "polarity": "negative"
       }
     ]
+  },
+  {
+    "id": "QUAL-REQ-031",
+    "text": "A transfer MUST bind source and target to one exact accepted view and traverse the reflexive-transitive order from target kind to source kind.",
+    "section": "spec/transfer-requirements.md#qual-req-031",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0063",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0064",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0065",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0066",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0067",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0068",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0076",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0079",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0083",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-032",
+    "text": "A carried finding MUST have equal canonical criterion semantics and be applicable and definite under compatible, consistent source and target views.",
+    "section": "spec/transfer-requirements.md#qual-req-032",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0063",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0064",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0065",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0066",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0070",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0071",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0072",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0073",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0078",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0080",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0081",
+        "polarity": "positive"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-033",
+    "text": "A transfer MUST retain exact source-finding and criterion digests, preserve directly assessed target criteria and recompute the target prerequisite result without transferring authorization.",
+    "section": "spec/transfer-requirements.md#qual-req-033",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0063",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0064",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0065",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0066",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0069",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0070",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0072",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-034",
+    "text": "A receiver MUST recompute the transfer and its exact bindings from both raw requests, including when they are carried in the fixed RDF frame.",
+    "section": "spec/transfer-requirements.md#qual-req-034",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0074",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0075",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0082",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0083",
+        "polarity": "negative"
+      }
+    ]
   }
 ]

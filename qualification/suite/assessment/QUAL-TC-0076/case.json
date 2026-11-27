@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A versioned use registry can admit a transfer through a transitive path.","id":"QUAL-TC-0076","requirements":["QUAL-REQ-031"]}

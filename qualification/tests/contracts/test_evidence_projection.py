@@ -54,3 +54,19 @@ def test_joint_omission_witness_survives_rdf_projection() -> None:
     graph.remove((None, qual.unit, None))
     ok, _, _ = validate(graph, shacl_graph=rules)
     assert not ok
+
+
+def test_transfer_carries_both_policy_bindings_and_the_source_finding() -> None:
+    result = json.loads((ROOT / "suite/assessment/QUAL-TC-0063/expected.json").read_bytes())
+    fixture = json.loads((ROOT / "suite/receiver/QUAL-TC-0074/input.json").read_bytes())
+    projection = project("result", result)
+    assert projection == fixture["result"]
+    graph = Graph().parse(data=json.dumps(projection), format="json-ld")
+    rules = Graph().parse(data=shape("result"), format="turtle")
+    ok, _, report = validate(graph, shacl_graph=rules)
+    assert ok, report
+
+    qual = Namespace("https://quaecer.github.io/specs/qualification/1.0/terms/")
+    graph.remove((None, qual.source_finding_digest, None))
+    ok, _, _ = validate(graph, shacl_graph=rules)
+    assert not ok
