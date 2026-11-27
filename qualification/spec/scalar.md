@@ -49,8 +49,11 @@ decimal strings for controls. Reject duplicate members and invalid Unicode.
 A report matches the operator and its exact selector. Check and control use
 the criterion key. Dependence uses the dimension and unordered comparison of
 two exact pins. Run and body use exact run and artifact pins. Selection uses
-the rule's fixed item set. Distinctness of identifiers alone gives no
-dependence finding.
+the rule's fixed item set. A selection report matches when its declared
+required pins intersect that set. For the rule, count dispositions only
+for items in the rule's set. This permits partial reports to establish
+different parts of a single selection requirement. Distinctness of
+identifiers alone gives no dependence finding.
 
 | Operator | Support | Opposition | Unresolved observation |
 | --- | --- | --- | --- |
@@ -78,14 +81,18 @@ explicit supporting revision pins. Sort the pins by identifier. Unselected
 reports can appear in a `report_not_accepted` reason for an untested or
 unresolved criterion. A conflict reason identifies all contributing
 opposing reports and the criterion, and is also carried in the result's
-inconsistency list. A missing body identifies its artifact. An unresolved
-scalar without another reason uses `unavailable_report` with its criterion.
-An inapplicable criterion has an empty basis and reasons.
+inconsistency list. A scalar conflict leaves `related_ids` empty, including
+when the conflict is on a selection item. Its contributing reports identify
+the affected item. A `missing_body` reason places the artifact identifier
+in `related_ids` and carries a null criterion. An unresolved scalar without
+another reason uses `unavailable_report` with its criterion. An inapplicable
+criterion has an empty basis and reasons.
 
 Sort findings by criterion identifier and dependence rows by dimension.
 A dependence row carries the policy comparison, the known relation (or
 `unknown` when unestablished or contested), the accepted matching reports and
-their basis. At most one applicable dependence comparison is permitted.
+their basis. Order the two comparison pins by identifier. At most one
+unordered pair is permitted across applicable dependence rules.
 Every reason has `code`, sorted `report_ids`, sorted `related_ids`, an
 explicit `channel` or null and a separate `criterion` key or null. Sort reasons and inconsistencies by their
 canonical byte representations.
