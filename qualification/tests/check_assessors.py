@@ -9,11 +9,15 @@ from pathlib import Path
 
 
 def main() -> None:
-    """Run both programs through the generic runner and verify the report manifest."""
+    """Run the installed evaluators and verify the resulting report manifest."""
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("qualifier", "qualcheck", "conform", "seal", "suite", "out"):
         parser.add_argument(f"--{name}", type=Path, required=True)
+    parser.add_argument("--qualref", type=Path)
+    parser.add_argument("--clockcheck", type=Path)
     args = parser.parse_args()
+    if (args.qualref is None) != (args.clockcheck is None):
+        parser.error("--qualref and --clockcheck are required together")
     suite = args.suite.resolve()
     output = args.out.resolve()
     output.mkdir()
@@ -26,7 +30,21 @@ def main() -> None:
     ]
     artifacts = []
     totals = {}
-    for executable, name, section in runs:
+    commands = [
+        ((str(executable.resolve()), "serve-process"), name, section)
+        for executable, name, section in runs
+    ]
+    if args.qualref is not None:
+        command = (
+            str(args.qualref.resolve()),
+            "serve-process",
+            "--clockcheck",
+            str(args.clockcheck.resolve()),
+        )
+        commands.extend(
+            (command, "qualref", section) for section in ("wire", "assessment", "receiver")
+        )
+    for command, name, section in commands:
         label = f"{name}-{section}"
         report = label + ".ttl"
         summary = label + ".json"
@@ -37,7 +55,7 @@ def main() -> None:
                 "--suite",
                 str(suite / section),
                 "--impl",
-                shlex.join((str(executable.resolve()), "serve-process")),
+                shlex.join(command),
                 "--report",
                 report,
             ],
