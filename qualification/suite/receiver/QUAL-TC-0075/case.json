@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a structurally valid transfer certificate that changes the bound source finding.","id":"QUAL-TC-0075","requirements":["QUAL-REQ-034"]}

@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Carry an identical directly verified finding from held_out to computational_reanalysis.","id":"QUAL-TC-0064","requirements":["QUAL-REQ-031","QUAL-REQ-032","QUAL-REQ-033"]}

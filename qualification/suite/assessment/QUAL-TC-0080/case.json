@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A changed coverage window remains a distinct predicate even when both pass.","id":"QUAL-TC-0080","requirements":["QUAL-REQ-032"]}

@@ -99,12 +99,40 @@
           },
           "target_criterion": {
             "$ref": "common.schema.json#/$defs/text"
+          },
+          "source_use": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "target_use": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "target_policy_digest": {
+            "$ref": "common.schema.json#/$defs/digest"
+          },
+          "view_digest": {
+            "$ref": "common.schema.json#/$defs/digest"
+          },
+          "use_registry_digest": {
+            "$ref": "common.schema.json#/$defs/digest"
+          },
+          "source_criterion": {
+            "$ref": "common.schema.json#/$defs/text"
+          },
+          "source_finding_digest": {
+            "$ref": "common.schema.json#/$defs/digest"
           }
         },
         "required": [
           "source_policy_digest",
           "criterion_digest",
-          "target_criterion"
+          "target_criterion",
+          "source_use",
+          "target_use",
+          "target_policy_digest",
+          "view_digest",
+          "use_registry_digest",
+          "source_criterion",
+          "source_finding_digest"
         ]
       },
       "maxItems": 64,

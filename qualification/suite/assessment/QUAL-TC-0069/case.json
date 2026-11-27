@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A failed source gate cannot carry an unmatched failure or fill a missing target prerequisite.","id":"QUAL-TC-0069","requirements":["QUAL-REQ-033"]}
