@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Intersect the bounds of accepted in-scope aliases before deciding history membership.","id":"QUAL-TC-0031","requirements":["QUAL-REQ-019"]}
