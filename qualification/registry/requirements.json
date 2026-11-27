@@ -354,5 +354,26 @@
         "polarity": "negative"
       }
     ]
+  },
+  {
+    "id": "QUAL-REQ-021",
+    "text": "An identity MUST match the absolute IRI grammar and retain its exact spelling.",
+    "section": "spec/wire-requirements.md#qual-req-021",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0036",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0037",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0038",
+        "polarity": "negative"
+      }
+    ]
   }
 ]

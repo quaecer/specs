@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a control character embedded in an identity.","id":"QUAL-TC-0038","requirements":["QUAL-REQ-021"]}

@@ -108,3 +108,14 @@ envelope and exact pins in RDF. The installed specification's
 `project("evidence", evidence)` and `project("result", result)` functions
 produce the fixed frames. The process interface accepts the documented compact
 JSON-LD representation of the graph.
+
+## Identity grammar
+
+The common schema requires an absolute [RFC 3987](https://www.rfc-editor.org/rfc/rfc3987.html)
+subset. It allows an ASCII scheme with a nonempty rootless path, an absolute
+path that does not begin with two slashes, or a registered-name authority
+with optional user information and numeric port. Paths, query and fragment
+use unreserved and sub-delimiter characters, exact percent escapes and the
+permitted Unicode ranges. Compare identifiers as supplied, including case
+and encoding. Input offsets use valid signed hours and minutes. Assessment
+also checks that the date denotes a representable UTC instant.
