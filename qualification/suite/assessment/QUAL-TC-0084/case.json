@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Group invalid aliases for one event without imposing equality between distinct occurrences.","id":"QUAL-TC-0084","requirements":["QUAL-REQ-028"]}
