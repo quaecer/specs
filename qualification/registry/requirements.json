@@ -295,5 +295,39 @@
         "polarity": "negative"
       }
     ]
+  },
+  {
+    "id": "QUAL-REQ-018",
+    "text": "A forbidden occurrence MUST oppose the absence criterion only when its closed true-time range is wholly inside the half-open history.",
+    "section": "spec/exposure-requirements.md#qual-req-018",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0028",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0029",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-019",
+    "text": "Accepted aliases and matching occurrence identities MUST share a common time within their declared bounds, with an empty intersection reported incompatible.",
+    "section": "spec/exposure-requirements.md#qual-req-019",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0030",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0031",
+        "polarity": "positive"
+      }
+    ]
   }
 ]

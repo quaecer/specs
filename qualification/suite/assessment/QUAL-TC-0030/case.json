@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Retain direct violation evidence even when the same occurrence has contradictory times.","id":"QUAL-TC-0030","requirements":["QUAL-REQ-019"]}

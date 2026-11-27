@@ -1,1 +1,1 @@
-{"comparison":"canonical-equal","description":"A scalar pass cannot authorize a gate with unresolved timing premises.","id":"QUAL-TC-0025","requirements":["QUAL-REQ-016"]}
+{"comparison":"canonical-equal","description":"A missing timing bound cannot be bypassed by a scalar pass.","id":"QUAL-TC-0025","requirements":["QUAL-REQ-016"]}

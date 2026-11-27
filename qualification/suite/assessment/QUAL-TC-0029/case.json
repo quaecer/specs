@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"The exact lock instant is outside the half-open forbidden window.","id":"QUAL-TC-0029","requirements":["QUAL-REQ-018"]}
