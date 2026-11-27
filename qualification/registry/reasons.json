@@ -12,6 +12,8 @@
     "omitted_event": "Accepted occurrence contradicts committed inventory.",
     "forbidden_exposure": "Accepted occurrence is forbidden in the required history.",
     "clock_incompatible": "Accepted timing premises have no compatible timeline.",
-    "clock_unresolved": "The accepted timing premises could not be checked completely."
+    "clock_unresolved": "The accepted timing premises could not be checked completely.",
+    "possible_exposure": "A present forbidden occurrence may fall in the required history.",
+    "capture_challenge": "An accepted challenge certainly overlaps a matching capture commitment."
   }
 }

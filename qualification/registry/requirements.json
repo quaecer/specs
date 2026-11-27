@@ -483,5 +483,134 @@
         "polarity": "positive"
       }
     ]
+  },
+  {
+    "id": "QUAL-REQ-026",
+    "text": "An assessment MUST check the joint continuous-time constraints of resolved accepted premises, including shared readings and strict half-open omission boundaries.",
+    "section": "spec/clock-requirements.md#qual-req-026",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0052",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0053",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0056",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0043",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0077",
+        "polarity": "positive"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-027",
+    "text": "A typed entry MUST constrain its occurrence on the statement clock even without an accepted exposure body or a complete parent capture.",
+    "section": "spec/clock-requirements.md#qual-req-027",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0053",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0054",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0061",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0062",
+        "polarity": "positive"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-028",
+    "text": "An evaluator MUST resolve references and aliases against accepted exact descriptors, refusing conflicting canonical occurrence identities and leaving missing links unresolved.",
+    "section": "spec/clock-requirements.md#qual-req-028",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0056",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0060",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0061",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0062",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0045",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-029",
+    "text": "An absence assessment MUST consider possible pre-lock occurrences in compatible worlds and preserve separately established violations when other accepted premises conflict.",
+    "section": "spec/clock-requirements.md#qual-req-029",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0052",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0054",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0055",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0062",
+        "polarity": "positive"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-030",
+    "text": "An accepted challenge MUST defeat a matching complete unit only when overlap with the challenge's true-time interval is forced by accepted positive timing premises.",
+    "section": "spec/clock-requirements.md#qual-req-030",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0057",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0058",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0059",
+        "polarity": "negative"
+      }
+    ]
   }
 ]

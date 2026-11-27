@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Covered history with a listed occurrence that may precede lock does not prove absence.","id":"QUAL-TC-0055","requirements":["QUAL-REQ-029"]}

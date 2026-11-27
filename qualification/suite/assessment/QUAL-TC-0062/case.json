@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A selected body resolves its inventory reference and proves the listed use is after lock.","id":"QUAL-TC-0062","requirements":["QUAL-REQ-027","QUAL-REQ-028","QUAL-REQ-029"]}

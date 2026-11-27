@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A different exact occurrence on the same resource is absent from the nonempty inventory.","id":"QUAL-TC-0056","requirements":["QUAL-REQ-026","QUAL-REQ-028"]}
