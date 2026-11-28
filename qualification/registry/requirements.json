@@ -1,0 +1,121 @@
+[
+  {
+    "id": "QUAL-REQ-001",
+    "text": "A validation request MUST use the exact published profile identifiers.",
+    "section": "spec/wire-requirements.md#qual-req-001",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0002",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-002",
+    "text": "A rule MUST provide exactly the fields of its operator.",
+    "section": "spec/wire-requirements.md#qual-req-002",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0003",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-003",
+    "text": "A timestamp in the wire profile MUST have at most six fractional digits and a known offset.",
+    "section": "spec/wire-requirements.md#qual-req-003",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0004",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-004",
+    "text": "A report MUST include its identity, issuer, exact subject, implementation and nonempty basis.",
+    "section": "spec/wire-requirements.md#qual-req-004",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0005",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-005",
+    "text": "A segmented statement MUST use an empty parent inventory and null parent digest.",
+    "section": "spec/wire-requirements.md#qual-req-005",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0006",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-006",
+    "text": "The request MUST supply caller report pins and artifact bodies as explicit arrays.",
+    "section": "spec/wire-requirements.md#qual-req-006",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0007",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-007",
+    "text": "A check or control with state not_run MUST carry a null result or observed field respectively.",
+    "section": "spec/wire-requirements.md#qual-req-007",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0001",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0008",
+        "polarity": "negative"
+      }
+    ]
+  }
+]

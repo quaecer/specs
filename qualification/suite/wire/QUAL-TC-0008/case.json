@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0008",
+  "description": "Refuse a positive result for an unrun check.",
+  "requirements": [
+    "QUAL-REQ-007"
+  ],
+  "comparison": "canonical-equal"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "QUAL-TC-0002",
+  "description": "Refuse an unsupported policy profile.",
+  "requirements": [
+    "QUAL-REQ-001"
+  ],
+  "comparison": "canonical-equal"
+}
