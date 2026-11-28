@@ -20,21 +20,35 @@ def _name(name: str) -> str:
     return name
 
 
+def _object(path: Path) -> dict[str, object]:
+    value: object = json.loads(path.read_bytes())
+    if not isinstance(value, dict):
+        raise ValueError("resource must be a JSON object")
+    return value
+
+
 def schema(name: str) -> dict[str, object]:
     """Read a named JSON Schema resource from the installed distribution.
 
     >>> schema("request")["type"]
     'object'
     """
-    value: object = json.loads(_asset("schema", _name(name) + ".schema.json").read_bytes())
-    if not isinstance(value, dict):
-        raise ValueError("schema resource must be an object")
-    return value
+    return _object(_asset("schema", _name(name) + ".schema.json"))
 
 
 def registry(name: str) -> object:
     """Read a named JSON registry resource from the installed distribution."""
     return json.loads(_asset("registry", _name(name) + ".json").read_bytes())
+
+
+def context(name: str) -> dict[str, object]:
+    """Read a named local JSON-LD context."""
+    return _object(_asset("context", _name(name) + ".jsonld"))
+
+
+def shape(name: str) -> str:
+    """Read a named SHACL shape in Turtle syntax."""
+    return _asset("shapes", _name(name) + ".ttl").read_text(encoding="utf-8")
 
 
 def suite_path(name: str) -> Path:

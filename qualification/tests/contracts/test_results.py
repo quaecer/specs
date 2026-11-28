@@ -108,3 +108,45 @@ def test_extension_use_is_representable():
     request["policy"]["use"]["kind"] = "independent_review"
     request["policy"]["rules"][0]["uses"] = ["independent_review"]
     _validator("request").validate(request)
+
+
+def test_result_rdf_preserves_required_fields_and_ordered_outcomes():
+    from pyshacl import validate
+    from rdflib import RDF, Graph, Namespace
+    from rdflib.collection import Collection
+
+    qual = Namespace(BASE + "terms/")
+    earl = Namespace("http://www.w3.org/ns/earl#")
+    context = json.loads((ROOT / "context/result.jsonld").read_bytes())
+    result = _result()
+    result["qualification"] = "prerequisites_unresolved"
+    result["findings"].append(
+        {
+            "criterion": "quality",
+            "execution": "not_run",
+            "value": "neither",
+            "outcome": "untested",
+            "reasons": [],
+            "basis": [],
+        }
+    )
+    _validator("result").validate(result)
+    for finding in result["findings"]:
+        finding["@type"] = "earl:TestResult"
+    result["resolving_sets"]["search_bound_reached"] = {"@id": str(qual.Null)}
+    graph = Graph().parse(
+        data=json.dumps({**context, "@type": "qual:Result", **result}),
+        format="json-ld",
+    )
+    shapes = Graph().parse(ROOT / "shapes/result.ttl", format="turtle")
+    conforms, _, report = validate(graph, shacl_graph=shapes)
+    assert conforms, report
+    root = graph.value(predicate=RDF.type, object=qual.Result)
+    findings = graph.value(root, qual.findings)
+    assert [graph.value(node, earl.outcome) for node in Collection(graph, findings)] == [
+        earl.passed,
+        earl.untested,
+    ]
+    graph.remove((root, qual.view_digest, None))
+    conforms, _, _ = validate(graph, shacl_graph=shapes)
+    assert not conforms

@@ -1,0 +1,81 @@
+{
+  "@context": {
+    "@vocab": "https://quaecer.github.io/specs/qualification/1.0/terms/",
+    "qual": "https://quaecer.github.io/specs/qualification/1.0/terms/",
+    "earl": "http://www.w3.org/ns/earl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "@id",
+    "profile": {
+      "@type": "@id"
+    },
+    "use": {
+      "@type": "@id"
+    },
+    "outcome": {
+      "@id": "earl:outcome",
+      "@type": "@vocab"
+    },
+    "start": {
+      "@type": "xsd:dateTime"
+    },
+    "end": {
+      "@type": "xsd:dateTime"
+    },
+    "passed": "earl:passed",
+    "failed": "earl:failed",
+    "cantTell": "earl:cantTell",
+    "inapplicable": "earl:inapplicable",
+    "untested": "earl:untested",
+    "findings": {
+      "@container": "@list"
+    },
+    "coverage": {
+      "@container": "@list"
+    },
+    "dependence": {
+      "@container": "@list"
+    },
+    "inconsistencies": {
+      "@container": "@list"
+    },
+    "transfers": {
+      "@container": "@list"
+    },
+    "sets": {
+      "@container": "@list"
+    },
+    "reasons": {
+      "@container": "@list"
+    },
+    "basis": {
+      "@container": "@list"
+    },
+    "statements": {
+      "@container": "@list"
+    },
+    "reports": {
+      "@container": "@list"
+    },
+    "covered": {
+      "@container": "@list"
+    },
+    "gaps": {
+      "@container": "@list"
+    },
+    "defeated": {
+      "@container": "@list"
+    },
+    "unit_ids": {
+      "@container": "@list",
+      "@type": "@id"
+    },
+    "report_ids": {
+      "@container": "@list",
+      "@type": "@id"
+    },
+    "related_ids": {
+      "@container": "@list",
+      "@type": "@id"
+    }
+  }
+}

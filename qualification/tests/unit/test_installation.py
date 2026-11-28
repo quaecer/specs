@@ -16,13 +16,17 @@ class InstallationTest(unittest.TestCase):
         import json
         from pathlib import Path
 
-        from quaecer.spec_qualification import registry, schema, suite_path
+        from quaecer.spec_qualification import context, registry, schema, shape, suite_path
 
         root = Path(__file__).resolve().parents[2]
         self.assertEqual(
             schema("request"), json.loads((root / "schema/request.schema.json").read_bytes())
         )
         self.assertEqual(registry("uses"), json.loads((root / "registry/uses.json").read_bytes()))
+        self.assertEqual(
+            context("result"), json.loads((root / "context/result.jsonld").read_bytes())
+        )
+        self.assertEqual(shape("result"), (root / "shapes/result.ttl").read_text(encoding="utf-8"))
         case = "QUAL-TC-0001/input.json"
         self.assertEqual(
             (suite_path("wire") / case).read_bytes(),
