@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Reject an altered but well-formed result binding.","id":"QUAL-TC-0027","requirements":["QUAL-REQ-017"]}

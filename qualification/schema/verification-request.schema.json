@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/verification-request.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile",
+    "request",
+    "result"
+  ],
+  "properties": {
+    "profile": {
+      "const": "https://quaecer.github.io/specs/qualification/1.0/verification-request"
+    },
+    "request": {
+      "$ref": "request.schema.json",
+      "properties": {
+        "operation": {
+          "const": "assess"
+        }
+      }
+    },
+    "result": {
+      "$ref": "result.schema.json"
+    }
+  }
+}

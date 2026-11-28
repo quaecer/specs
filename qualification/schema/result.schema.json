@@ -310,13 +310,24 @@
               "type": "null"
             }
           ]
+        },
+        "criterion": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
         "code",
         "report_ids",
         "related_ids",
-        "channel"
+        "channel",
+        "criterion"
       ]
     },
     "finding": {

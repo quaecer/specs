@@ -117,5 +117,183 @@
         "polarity": "negative"
       }
     ]
+  },
+  {
+    "id": "QUAL-REQ-008",
+    "text": "An assessment MUST refuse a mismatched expected policy, registry, use, subject, implementation or claim binding.",
+    "section": "spec/scalar-requirements.md#qual-req-008",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0009",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0010",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-009",
+    "text": "A report MUST contribute only if its exact digest and scope match a caller selection.",
+    "section": "spec/scalar-requirements.md#qual-req-009",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0009",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0011",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-010",
+    "text": "The sceptical result MUST distinguish accepted support, opposition, both, neither and explicit non-execution.",
+    "section": "spec/scalar-requirements.md#qual-req-010",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0009",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0012",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0013",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-011",
+    "text": "A control MUST compare exact values in the reported unit at the inclusive tolerance boundary.",
+    "section": "spec/scalar-requirements.md#qual-req-011",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0014",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0015",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-012",
+    "text": "Contested dependence MUST remain unresolved even under a requirement for any known relation.",
+    "section": "spec/scalar-requirements.md#qual-req-012",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0016",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0017",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-013",
+    "text": "An interrupted or failed run MUST oppose a run completion prerequisite.",
+    "section": "spec/scalar-requirements.md#qual-req-013",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0018",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0019",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-014",
+    "text": "A selection rule MUST preserve its fixed obligation set and report contested items separately from definite omissions.",
+    "section": "spec/scalar-requirements.md#qual-req-014",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0020",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0021",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-015",
+    "text": "A body finding MUST compare both the digest and size of supplied bytes to the accepted observation.",
+    "section": "spec/scalar-requirements.md#qual-req-015",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0022",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0023",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0024",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-016",
+    "text": "An unimplemented temporal premise MUST leave exact compatibility unresolved and cannot support a positive qualification.",
+    "section": "spec/scalar-requirements.md#qual-req-016",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0009",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0025",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-017",
+    "text": "The receiver MUST compare the full result with a recomputation from the bound raw request.",
+    "section": "spec/scalar-requirements.md#qual-req-017",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0026",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0027",
+        "polarity": "negative"
+      }
+    ]
   }
 ]

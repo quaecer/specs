@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Test exact comparison near the decimal exponent bound.","id":"QUAL-TC-0015","requirements":["QUAL-REQ-011"]}

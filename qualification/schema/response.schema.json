@@ -9,7 +9,9 @@
         "status": {
           "enum": [
             "valid",
-            "invalid"
+            "invalid",
+            "verified",
+            "mismatch"
           ]
         }
       },

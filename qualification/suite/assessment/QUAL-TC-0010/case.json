@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse a caller-bound policy digest mismatch.","id":"QUAL-TC-0010","requirements":["QUAL-REQ-008"]}
