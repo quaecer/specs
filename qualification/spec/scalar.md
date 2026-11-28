@@ -40,7 +40,8 @@ three arrays by their pin identifier before hashing.
 The body strings use canonical padded Base64. Hash the decoded bytes for the
 body rule. Digesting the view binds the exact assessed inputs independently of
 the policy's use identifier, which remains separately bound by the policy
-digest. JSON input permits integral numbers in the interoperable range. Use
+digest. JSON input permits integer literals in the interoperable range. Decimal points
+and exponents belong in the declared control strings. Use
 decimal strings for controls. Reject duplicate members and invalid Unicode.
 
 ## Scalar predicates
@@ -91,14 +92,9 @@ canonical byte representations.
 
 ## Initial evaluation scope
 
-When there are no accepted temporal reports, the timing constraints are
-empty and compatible. The initial scalar implementation leaves clock
-compatibility unresolved when accepted temporal reports are present.
-Coverage and absence rules are unresolved in this implementation. They use
-`clock_unresolved` as a reason and carry no inferred coverage, omission or
-transfer. For a coverage rule the reason carries its channel.
-As defined in the result contract, an applicable definite failure remains
-visible. A scalar proof does not bypass unresolved clock compatibility.
+The [exposure fragment](exposure.md) handles declared true-time bounds and
+definite forbidden occurrences. Committed coverage and transfer remain
+deferred. A scalar proof does not bypass unresolved clock compatibility.
 
 The receiver can evaluate the same request from raw input. It also accepts a
 verification envelope with `profile` set to

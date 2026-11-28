@@ -23,6 +23,15 @@ module exposes `schema(name)`, `registry(name)`, `suite_path(name)`,
 `context(name)` and `shape(name)`. After editing resources in a local
 checkout, reinstall the distribution before testing the installed copies.
 
+For the installed check, build wheels for this specification and the
+assessment, receiving, runner and sealing commands. Install the specification
+into each assessor's environment to keep their schema data identical.
+The receiver environment needs only its wheel and the specification data.
+Run `qualification/tests/check_assessors.py --help` for the path arguments.
+Pass the `suite` directory from the installed specification and a new output
+directory. The check retains one EARL and one JSON report per invocation
+and verifies an exact manifest of those reports.
+
 Set `GATE_GITHUB_REPOSITORY` to the GitHub owner and repository and authenticate
 `gh` to include all pull request and issue text in the publication scan.
 CI scans repository text for owner branches. Run a maintainer scan before

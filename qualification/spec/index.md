@@ -30,3 +30,6 @@ results, reason terms and their conformance cases are in development.
 The [scalar assessment contract](scalar.md) specifies exact request bindings,
 reduction of scalar evidence and receiving verification. Its executable
 examples are in [the assessment suite](../suite/assessment).
+
+The [exposure contract](exposure.md) handles closed true-time ranges, accepted
+alias closure and the half-open pre-lock boundary.
