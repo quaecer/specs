@@ -1,8 +1,7 @@
 # Qualification
 
-Versioned specifications, schemas and conformance cases.
-
-Development preview. Build locally with `uv build`.
+[Qualification spec 1.0-draft](spec/index.md) specifies when recorded
+evidence supports prerequisites for a declared use.
 
 Apache-2.0.
 

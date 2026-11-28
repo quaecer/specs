@@ -1,0 +1,12 @@
+{
+  "format": "qualification-use-registry@1",
+  "uses": ["computational_reanalysis", "new_empirical_anchor", "held_out", "prospective_locked"],
+  "edges": [
+    {"target": "computational_reanalysis", "source": "new_empirical_anchor"},
+    {"target": "computational_reanalysis", "source": "held_out"},
+    {"target": "computational_reanalysis", "source": "prospective_locked"},
+    {"target": "prospective_locked", "source": "held_out"}
+  ],
+  "closure": "reflexive_transitive",
+  "instance_relation": "canonical_semantic_equality"
+}
