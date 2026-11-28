@@ -329,5 +329,51 @@
         "polarity": "positive"
       }
     ]
+  },
+  {
+    "id": "QUAL-REQ-020",
+    "text": "The receiver MUST reconstruct evidence and result from the fixed frames, refuse substituted contexts and verify the entire result against raw inputs.",
+    "section": "spec/rdf-requirements.md#qual-req-020",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0032",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0033",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0034",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0035",
+        "polarity": "negative"
+      }
+    ]
+  },
+  {
+    "id": "QUAL-REQ-021",
+    "text": "An identity MUST match the absolute IRI grammar and retain its exact spelling.",
+    "section": "spec/wire-requirements.md#qual-req-021",
+    "introduced_in": "1.0",
+    "modified_in": "1.0",
+    "cases": [
+      {
+        "id": "QUAL-TC-0036",
+        "polarity": "positive"
+      },
+      {
+        "id": "QUAL-TC-0037",
+        "polarity": "negative"
+      },
+      {
+        "id": "QUAL-TC-0038",
+        "polarity": "negative"
+      }
+    ]
   }
 ]

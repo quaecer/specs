@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@vocab": "https://quaecer.github.io/specs/qualification/1.0/terms/",
+    "qual": "https://quaecer.github.io/specs/qualification/1.0/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "@id",
+    "issuer": {
+      "@id": "prov:wasAttributedTo"
+    },
+    "profile": {
+      "@type": "@id"
+    },
+    "use": {
+      "@type": "@id"
+    },
+    "observer": {
+      "@type": "@id"
+    },
+    "about_observer": {
+      "@type": "@id"
+    },
+    "clock_id": {
+      "@type": "@id"
+    },
+    "occurrence_id": {
+      "@type": "@id"
+    },
+    "event_id": {
+      "@type": "@id"
+    },
+    "identity_scheme": {
+      "@type": "@id"
+    },
+    "at": {
+      "@type": "xsd:dateTime"
+    },
+    "start": {
+      "@type": "xsd:dateTime"
+    },
+    "end": {
+      "@type": "xsd:dateTime"
+    },
+    "references": {
+      "@container": "@list"
+    },
+    "reports": {
+      "@container": "@list"
+    },
+    "basis": {
+      "@container": "@list"
+    },
+    "channels": {
+      "@container": "@list"
+    },
+    "entries": {
+      "@container": "@list"
+    },
+    "segments": {
+      "@container": "@list"
+    },
+    "required": {
+      "@container": "@list"
+    },
+    "included": {
+      "@container": "@list"
+    },
+    "omitted": {
+      "@container": "@list"
+    },
+    "same_as": {
+      "@container": "@list",
+      "@type": "@id"
+    }
+  }
+}

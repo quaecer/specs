@@ -85,6 +85,37 @@ The [result shape](../shapes/result.ttl) tests structural carriage, including
 the presence of exact binding fields, findings and reserved resolving-set
 fields. Receivers select exactly one typed result before applying the shape.
 The receiving evaluator derives findings from policy and raw
-observations independently of this projection. These shapes describe a
-draft result surface. Raw evidence RDF and complete receiver conformance
-remain separate work.
+observations independently of this projection. These shapes describe the draft result surface.
+
+## Fixed RDF receiving frame
+
+For the [RDF verification envelope](../schema/rdf-verification-request.schema.json),
+the request carries an evidence projection in its `evidence` field, and the
+envelope's result carries the result projection. The evidence projection uses
+the [evidence context](../context/evidence.jsonld) and root type
+`qual:Evidence`. Type each report as `qual:Observation`. Report attribution
+has the PROV-O `wasAttributedTo` predicate. Arrays and the explicit null
+marker follow the result projection convention.
+
+Select one correctly framed root for each document. The receiver compares
+the contexts to its installed specification, checks types of the root and
+list members, and only then reconstructs the raw fields. Nested JSON-LD
+directives are refused. The exact report digests bind the reconstructed
+plain JSON reports. The received result supplies no premises to evaluation.
+
+The [evidence shape](../shapes/evidence.ttl) checks the retained observation
+envelope and exact pins in RDF. The installed specification's
+`project("evidence", evidence)` and `project("result", result)` functions
+produce the fixed frames. The process interface accepts the documented compact
+JSON-LD representation of the graph.
+
+## Identity grammar
+
+The common schema requires an absolute [RFC 3987](https://www.rfc-editor.org/rfc/rfc3987.html)
+subset. It allows an ASCII scheme with a nonempty rootless path, an absolute
+path that does not begin with two slashes, or a registered-name authority
+with optional user information and numeric port. Paths, query and fragment
+use unreserved and sub-delimiter characters, exact percent escapes and the
+permitted Unicode ranges. Compare identifiers as supplied, including case
+and encoding. Input offsets use valid signed hours and minutes. Assessment
+also checks that the date denotes a representable UTC instant.

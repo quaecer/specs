@@ -37,3 +37,8 @@ The request MUST supply caller report pins and artifact bodies as explicit array
 ## QUAL-REQ-007 Unrun observation
 
 A check or control with state not_run MUST carry a null result or observed field respectively.
+
+<a id="qual-req-021"></a>
+## QUAL-REQ-021 Identity grammar
+
+An identity MUST match the absolute IRI grammar and retain its exact spelling.

@@ -1,0 +1,38 @@
+@prefix qual: <https://quaecer.github.io/specs/qualification/1.0/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+qual:EvidenceShape a sh:NodeShape ;
+    sh:targetClass qual:Evidence ;
+    sh:property [ sh:path qual:profile ; sh:maxCount 1 ;
+        sh:hasValue <https://quaecer.github.io/specs/qualification/1.0/evidence> ] ;
+    sh:property [ sh:path qual:use ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:policy_digest ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^sha256:[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path qual:subject ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:RevisionPin ] ;
+    sh:property [ sh:path qual:claim ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:RevisionPin ] ;
+    sh:property [ sh:path qual:implementation ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:node qual:RevisionPin ] ;
+    sh:property [ sh:path qual:references ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:reports ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path ( qual:reports [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:node qual:ObservationShape ] .
+
+qual:ObservationShape a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:class qual:Observation ;
+    sh:property [ sh:path qual:kind ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:node qual:RevisionPin ] ;
+    sh:property [ sh:path qual:subject ; sh:minCount 1 ; sh:maxCount 1 ; sh:node qual:RevisionPin ] ;
+    sh:property [ sh:path qual:implementation ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:node qual:RevisionPin ] ;
+    sh:property [ sh:path qual:basis ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path ( qual:basis [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ; sh:node qual:RevisionPin ] .
+
+qual:RevisionPin a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:property [ sh:path qual:digest ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^sha256:[0-9a-f]{64}$" ] .

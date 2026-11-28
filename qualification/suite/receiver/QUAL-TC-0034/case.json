@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse an evidence context that changes the report attribution.","id":"QUAL-TC-0034","requirements":["QUAL-REQ-020"]}
