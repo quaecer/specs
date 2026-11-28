@@ -56,6 +56,7 @@ def main() -> None:
         if expected_cases[directory.name] != expected or observed != expected:
             raise SystemExit(f"wire case disagrees with schema or registry: {directory.name}")
     print(json.dumps({"requirements": len(matrix), "wire_cases": len(expected_cases)}))
+    transfer = _validator("transfer-request")
     response = _validator("response")
     verification = _validator("verification-request")
     rdf_verification = _validator("rdf-verification-request")
@@ -64,7 +65,9 @@ def main() -> None:
         for directory in sorted((ROOT / "suite" / name).iterdir()):
             document = read(directory / "input.json")
             if name == "assessment":
-                input_validator = validator
+                input_validator = (
+                    transfer if document["profile"].endswith("/transfer-request") else validator
+                )
             else:
                 input_validator = (
                     rdf_verification if document["profile"] == rdf_profile else verification

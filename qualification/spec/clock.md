@@ -23,7 +23,11 @@ half-open, including their start and excluding their end.
   a selected typed entry. Its channel belongs to the committed unit.
   A valid reference lists the occurrence and adds no reading. A missing
   reference supplies no positive scope obligation and records
-  `missing_usage`. Unselected bodies supply no equality or time bound.
+  `missing_usage`. Group unresolved entry identifiers per committed unit.
+  The reason names the parent report in `report_ids`, unresolved entry
+  identifiers in `related_ids`, and null channel and criterion. This also
+  applies when conflicting descriptors prevent resolution. Unselected
+  bodies supply no equality or time bound.
 - Canonical occurrence identifiers under `occurrence/explicit-id` are
   stable for the channel and exact resource pin. Accepted aliases name
   other report or entry identifiers for that occurrence. Close equal
@@ -31,7 +35,12 @@ half-open, including their start and excluding their end.
   confirm a canonical identifier or join an unspecified identifier to
   an occurrence. Conflicting known canonical identifiers or descriptors
   record `conflicting_observations` and supply no equality premise.
-  Missing alias targets leave compatibility unresolved.
+  When exact descriptors disagree for one identifier, exclude that
+  disputed occurrence from the clock formula. Group incompatible alias
+  declarations by originating event identifier. These descriptor and
+  alias reasons carry the contributing report IDs, null channel and
+  criterion, and empty `related_ids`. Missing alias targets leave
+  compatibility unresolved.
 - Every selected known accuracy applies on the closed nominal extent of
   the unit's scope, including both endpoints. All readings in that
   extent obey the bound, whether introduced by the unit or another

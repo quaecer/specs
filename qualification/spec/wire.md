@@ -66,7 +66,8 @@ Coverage has separate window and history compositions. Each retains
 covered regions, gaps, defeated regions, the involved commitments and
 structured joint omission witnesses. See [committed coverage](coverage.md).
 Dependence has a dimension, exact comparison, relation and retained
-basis. Transfer records bind criterion and source policy digests.
+basis. [Transfer records](transfer.md) bind both policies,
+the common view and registry, and exact source finding and criterion digests.
 The resolving-set field is reserved with status `not_run`.
 
 An extension use is representable in a policy with the same identifier

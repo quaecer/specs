@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Refuse the reverse of a declared use-order edge.","id":"QUAL-TC-0067","requirements":["QUAL-REQ-031"]}

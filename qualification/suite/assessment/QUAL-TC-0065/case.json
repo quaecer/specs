@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Carry an identical directly verified finding from prospective_locked to computational_reanalysis.","id":"QUAL-TC-0065","requirements":["QUAL-REQ-031","QUAL-REQ-032","QUAL-REQ-033"]}

@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Equal UTC windows with different offsets form the same criterion instance.","id":"QUAL-TC-0081","requirements":["QUAL-REQ-032"]}

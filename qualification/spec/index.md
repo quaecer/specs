@@ -5,7 +5,7 @@ a declared use. A prerequisite finding does not grant authorization.
 
 The [formal draft](formal.md) defines the proposed use order, transfer
 premises and exact clock compatibility reduction. The [draft use
-registry](../registry/uses.json) records the built-in edges. The transfer contract is open for review before implementation.
+registry](../registry/uses.json) records the built-in edges. The [transfer contract](transfer.md) specifies receiving and carrying individual findings.
 
 The [use registry schema](../schema/use-registry.schema.json) defines the
 fields of a registry. Use identifiers are lowercase ASCII letters and digits

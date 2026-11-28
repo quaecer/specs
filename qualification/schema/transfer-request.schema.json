@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quaecer.github.io/specs/qualification/1.0/transfer-request.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile",
+    "operation",
+    "source",
+    "target"
+  ],
+  "properties": {
+    "profile": {
+      "const": "https://quaecer.github.io/specs/qualification/1.0/transfer-request"
+    },
+    "operation": {
+      "const": "transfer"
+    },
+    "source": {
+      "$ref": "request.schema.json",
+      "properties": {
+        "operation": {
+          "const": "assess"
+        }
+      }
+    },
+    "target": {
+      "$ref": "request.schema.json",
+      "properties": {
+        "operation": {
+          "const": "assess"
+        }
+      }
+    }
+  }
+}
