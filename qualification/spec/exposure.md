@@ -5,23 +5,11 @@ range from `at - uncertainty_before_us` through
 `at + uncertainty_after_us`. Exposure bounds are already true-time
 limits. Overflow or a missing endpoint remains unknown.
 
-For this fragment all accepted events have the exact subject established by
-the request. Equal occurrence IDs identify one event only inside the same
-channel and resource revision. An explicit alias names another accepted
-exposure report. Close equal IDs and in-scope explicit aliases transitively.
-Links to unavailable reports leave compatibility unresolved. A link across
-different channels or resources records a descriptor conflict and leaves
-compatibility unresolved for that link.
-
-An occurrence's compatible range is the closed intersection of its known
-member ranges. An empty intersection is incompatible and cites the
-contributing report IDs. If every accepted temporal premise is an exposure
-with resolved identity and time bounds, these intersections decide
-compatibility exactly. An exposure permits any occurrence time in its
-intersection, independently of other events. The [coverage contract](coverage.md)
-includes the compatible exposure ranges when checking selected commitments.
-Missing bindings and uncompiled temporal premises leave compatibility
-unresolved unless a contradiction is already witnessed.
+The [exact clock contract](clock.md) defines shared occurrence identity,
+report alias resolution and translation of inventory readings. Accepted
+aliases name the same canonical occurrence. Distinct known canonical
+identifiers cannot be made equal by an alias. An unresolved alias leaves
+clock compatibility unresolved.
 
 A forbidden occurrence opposes absence when its resource pin and channel
 match policy and the full range is contained in

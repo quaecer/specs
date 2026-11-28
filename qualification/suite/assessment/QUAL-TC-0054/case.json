@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A typed entry without its usage body proves exposure before lock.","id":"QUAL-TC-0054","requirements":["QUAL-REQ-027","QUAL-REQ-029"]}

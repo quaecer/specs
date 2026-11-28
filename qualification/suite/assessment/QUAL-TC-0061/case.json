@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A committed typed entry with a conflicting accepted usage digest supplies no equality premise.","id":"QUAL-TC-0061","requirements":["QUAL-REQ-027","QUAL-REQ-028"]}

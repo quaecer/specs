@@ -1,1 +1,1 @@
-{"comparison":"canonical-equal","description":"Verify the nonempty inventory commitment while deferring its semantics.","id":"QUAL-TC-0045","requirements":["QUAL-REQ-022"]}
+{"comparison":"canonical-equal","description":"A selected inventory with an unresolved reference establishes no completeness support.","id":"QUAL-TC-0045","requirements":["QUAL-REQ-022","QUAL-REQ-028"]}

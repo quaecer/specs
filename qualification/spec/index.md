@@ -5,8 +5,7 @@ a declared use. A prerequisite finding does not grant authorization.
 
 The [formal draft](formal.md) defines the proposed use order, transfer
 premises and exact clock compatibility reduction. The [draft use
-registry](../registry/uses.json) records the built-in edges. The transfer
-contract is open for review before implementation.
+registry](../registry/uses.json) records the built-in edges. The transfer contract is open for review before implementation.
 
 The [use registry schema](../schema/use-registry.schema.json) defines the
 fields of a registry. Use identifiers are lowercase ASCII letters and digits
@@ -34,5 +33,6 @@ examples are in [the assessment suite](../suite/assessment).
 The [exposure contract](exposure.md) handles closed true-time ranges, accepted
 alias closure and the half-open pre-lock boundary.
 
-The [committed coverage contract](coverage.md) composes empty inventories
-on nominal clocks and records joint omission and defeat.
+The [committed coverage contract](coverage.md) composes declared inventories on nominal clocks and records joint omission
+and defeat. The [clock contract](clock.md) checks joint continuous-time
+compatibility of resolved accepted premises.

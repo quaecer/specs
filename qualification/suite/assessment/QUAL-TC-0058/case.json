@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A channel-wide challenge that only possibly overlaps does not defeat coverage.","id":"QUAL-TC-0058","requirements":["QUAL-REQ-030"]}

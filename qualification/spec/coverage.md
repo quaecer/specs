@@ -1,6 +1,6 @@
 # Committed coverage
 
-The installed draft composes commitments with empty inventories. A coverage
+A coverage
 criterion asks about its channel over `window`. An absence criterion asks
 about every policy channel over `[history_scope.start, lock_at)`, with a
 nonempty set of forbidden resource pins. Both use authoritative UTC.
@@ -20,11 +20,11 @@ units or 500 total committed entries.
 
 An eligible unit reports `complete`, explicitly declares the occurrence
 identity scheme, has a known accuracy no greater than the policy margin
-and has an empty inventory. Both declared scope kinds commit all
+and has a resolved inventory. Both declared scope kinds commit all
 information uses on their named channels for the specified interval.
-Other capture statuses give no support. A complete unit outside this
-fragment carries `statement_obligation`. Nonempty inventories retain their
-exact commitments and leave clock compatibility unresolved in this fragment.
+Other capture statuses can add clock premises. A complete unit with
+unmet obligations records `statement_obligation`. References and typed
+entries are interpreted by the [clock contract](clock.md).
 
 ## Clocks and composition
 
@@ -42,31 +42,17 @@ margin as a minimum erosion. Union these intervals across bounds and
 clocks after erosion. Distinct clocks have no shared boundary. Erosion
 discards empty ranges.
 
-For compatibility, the identity map is a valid clock assignment for the
-compiled fragment. It works if each occurrence's compatible closed UTC
-range has a point outside all eligible nominal scopes on its channel.
-This constructive check can prove compatibility if all accepted temporal
-premises are compiled. If that assignment fails and no contradiction is
-proved, compatibility remains unresolved. Capture challenges and
-nonempty inventories still need the full translation to clock constraints.
+Compatibility uses the complete accepted clock formula. Region composition
+uses the guaranteed intervals under the declared policy margin.
 
 ## Defeat and output
 
-An accepted exposure contradicts the empty commitments if its entire
-closed UTC range lies in the certain union of their scopes on its channel.
-Candidates are eligible commitments whose possible images
-`[a - accuracy,b + accuracy)` meet that range. A witness may require several
-units. An event at a right endpoint falls outside a half-open interval.
-Defeat removes each candidate unit on the witnessing channel. Policy may
-widen defeat to the entire statement, to complete commitments by that
-observer on the channel, or to all of the observer's complete commitments.
-
-An incomplete or disabled report contradicts a complete unit only when
-they share observer and channel and their individual certain intervals
-overlap. Group the opposing report identifiers by complete unit and
-channel. An unknown report or another observer's partial capture
-contributes no opposition. This inconsistency is distinct from clock
-compatibility.
+Omissions and challenges follow the [exact clock contract](clock.md).
+A bounded omission can require several units. Defeat removes each
+witnessed candidate unit on its channel. Policy may widen defeat to the
+entire statement, the observer's complete commitments on that channel,
+or all complete commitments by that observer. Another observer's unknown
+or partial capture contributes no opposition.
 
 For each policy channel, compose separate window and history results from
 undefeated units. Clip regions to the requested interval, carry their unit
@@ -77,7 +63,7 @@ the result has an empty coverage list.
 
 The compositions retain accepted statement pins, structured reasons and
 `joint_omissions`. Each omission records the event's closed range, its
-accepted exposure report IDs, the candidate unit IDs, the policy defeat
+accepted occurrence report IDs, the candidate unit IDs, the policy defeat
 scope and the affected unit/channel pairs. Witnesses for a channel appear
 in both compositions even when their effect lies outside one requested
 interval. Statement pins and unit/report identifiers sort lexically.
@@ -87,7 +73,7 @@ Coverage support requires compatible timing, no capture inconsistency and
 no gaps for the relevant interval and channels. A definite forbidden
 exposure gives opposition independently, even when one of the commitments
 is defeated. Unresolved temporal criteria carry `clock_unresolved` if
-compatibility is unproved, and otherwise `coverage_gap` for a gap or an
-unmet coverage prerequisite.
+compatibility is unproved, otherwise `coverage_gap` for an unmet coverage prerequisite or
+`possible_exposure` for a possible forbidden occurrence in covered history.
 
 See [the linked requirements](coverage-requirements.md).

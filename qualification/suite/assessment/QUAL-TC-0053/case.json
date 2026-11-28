@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Positive readings from incomplete captures alone couple two clocks and contradict the UTC order.","id":"QUAL-TC-0053","requirements":["QUAL-REQ-026","QUAL-REQ-027"]}
