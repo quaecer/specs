@@ -97,6 +97,28 @@
     },
     "target_use": {
       "@type": "@id"
+    },
+    "supports": {
+      "@container": "@list"
+    },
+    "clock_constraints": {
+      "@container": "@list"
+    },
+    "observers": {
+      "@container": "@list",
+      "@type": "@id"
+    },
+    "clock_id": {
+      "@type": "@id"
+    },
+    "observer": {
+      "@type": "@id"
+    },
+    "event_id": {
+      "@type": "@id"
+    },
+    "occurrence": {
+      "@type": "@id"
     }
   }
 }

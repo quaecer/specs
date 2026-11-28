@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Omissions on different channels conflict only when both constrain the same clock reading.","id":"QUAL-TC-0085","requirements":["QUAL-REQ-026"]}

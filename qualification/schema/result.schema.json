@@ -159,6 +159,15 @@
         "sets",
         "search_bound_reached"
       ]
+    },
+    "clock_constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/clock_constraint"
+      },
+      "maxItems": 1600,
+      "minItems": 0,
+      "uniqueItems": true
     }
   },
   "required": [
@@ -178,7 +187,8 @@
     "dependence",
     "inconsistencies",
     "transfers",
-    "resolving_sets"
+    "resolving_sets",
+    "clock_constraints"
   ],
   "allOf": [
     {
@@ -578,6 +588,15 @@
           "maxItems": 1500,
           "minItems": 0,
           "uniqueItems": true
+        },
+        "supports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coverage_support"
+          },
+          "maxItems": 100,
+          "minItems": 0,
+          "uniqueItems": true
         }
       },
       "required": [
@@ -586,7 +605,8 @@
         "defeated",
         "statements",
         "reasons",
-        "joint_omissions"
+        "joint_omissions",
+        "supports"
       ]
     },
     "coverage": {
@@ -730,6 +750,12 @@
           "maxItems": 500,
           "minItems": 1,
           "uniqueItems": true
+        },
+        "occurrence": {
+          "$ref": "common.schema.json#/$defs/iri"
+        },
+        "clock_constraints_digest": {
+          "$ref": "common.schema.json#/$defs/digest"
         }
       },
       "required": [
@@ -738,7 +764,181 @@
         "report_ids",
         "unit_ids",
         "defeat_scope",
-        "defeated_units"
+        "defeated_units",
+        "occurrence",
+        "clock_constraints_digest"
+      ]
+    },
+    "clock_constraint": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "capture_accuracy"
+            },
+            "report": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "lower": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "upper": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "unit": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "clock_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "accuracy_us": {
+              "$ref": "common.schema.json#/$defs/integer"
+            },
+            "observer": {
+              "$ref": "common.schema.json#/$defs/iri"
+            }
+          },
+          "required": [
+            "kind",
+            "report",
+            "lower",
+            "upper",
+            "unit",
+            "clock_id",
+            "accuracy_us",
+            "observer"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "entry_clock"
+            },
+            "report": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "lower": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "upper": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "unit": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "clock_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "accuracy_us": {
+              "$ref": "common.schema.json#/$defs/integer"
+            },
+            "event_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "occurrence": {
+              "$ref": "common.schema.json#/$defs/iri"
+            }
+          },
+          "required": [
+            "kind",
+            "report",
+            "lower",
+            "upper",
+            "unit",
+            "clock_id",
+            "accuracy_us",
+            "event_id",
+            "occurrence"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "event_utc"
+            },
+            "report": {
+              "$ref": "common.schema.json#/$defs/pin"
+            },
+            "lower": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "upper": {
+              "$ref": "common.schema.json#/$defs/timestamp"
+            },
+            "event_id": {
+              "$ref": "common.schema.json#/$defs/iri"
+            },
+            "occurrence": {
+              "$ref": "common.schema.json#/$defs/iri"
+            }
+          },
+          "required": [
+            "kind",
+            "report",
+            "lower",
+            "upper",
+            "event_id",
+            "occurrence"
+          ]
+        }
+      ]
+    },
+    "coverage_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clock_id": {
+          "$ref": "common.schema.json#/$defs/iri"
+        },
+        "accuracy_us": {
+          "$ref": "common.schema.json#/$defs/integer"
+        },
+        "lower": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "upper": {
+          "$ref": "common.schema.json#/$defs/timestamp"
+        },
+        "erosion_us": {
+          "$ref": "common.schema.json#/$defs/integer"
+        },
+        "interval": {
+          "$ref": "common.schema.json#/$defs/interval"
+        },
+        "observers": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/iri"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "clock_id",
+        "accuracy_us",
+        "lower",
+        "upper",
+        "erosion_us",
+        "interval",
+        "observers",
+        "unit_ids"
       ]
     }
   }

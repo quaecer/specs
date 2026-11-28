@@ -187,10 +187,10 @@ commitment. Compute violations and consistency independently of one another.
 ### Coverage composition
 
 For channel `c` keep eligible, undefeated units on that channel. Within a
-clock family, form the nominal union of units at each admitted accuracy
-bound `d` using units with `δᵤ ≤ d`. For each connected component `[a,b)`
-of this union use the nonempty interval `[a + max(d,m), b − max(d,m))`.
-Union these intervals across the layers and clocks to obtain `C(c,x)`.
+clock family, form the nominal union of its units. Eligibility gives
+`δᵤ ≤ m` for every unit. For each connected component `[a,b)` of that
+union use the nonempty interval `[a + m, b − m)`. Union these intervals
+across the clocks to obtain `C(c,x)`.
 For a required interval `R`, covered regions are `C(c,x) ∩ R` and gaps are
 `R \ C(c,x)`. The possible regions of defeated units are reported separately
 and may overlap surviving coverage.
@@ -205,34 +205,43 @@ or an unresolved query cannot establish absence.
 
 ### P2. Sound downgrade under removal
 
-Keep policy, use, required criteria, clock model and exact bindings fixed.
-Order views by removal of accepted premises, including selected reports
-and caller-supplied bytes. A retained typed entry stays a premise when its
-separate exposure body is removed. Use a consistent starting view and
-assume resolved derivations respect restriction. In particular a retained
-inventory and its resolved identities retain their meaning, and a lost
-alias or body can make a premise unresolved. For a reduced view, definite
-criterion findings and qualification can stay the same or weaken to
-unresolved. Removal cannot introduce a new contradiction from a
-consistent view. This concerns findings, qualification and consistency.
-Execution diagnostics, reasons and provenance can change.
+Keep the policy, use, registry, required criteria, clock model and exact
+bindings of retained inputs fixed. A reduced view removes accepted reports
+or caller-supplied bytes and has its own view digest. A retained typed entry
+stays a premise when its separate exposure body is removed. Start with a
+consistent view and compare completed assessments of well-formed views
+under restriction. Restriction preserves the meaning of retained
+premises and the truth of their consequences in each original world.
+A lost alias or body can leave a premise unresolved. Occurrences remain
+possible when their reports are removed.
 
-**Proof sketch.** Encode support and opposition as bits ordered by subset
-of the supported polarities. A scalar derivation uses witnesses for a
-fixed obligation, so its witnesses in the reduced view also exist in the
-original. Resolved timing constraints under removal restrict the available
-premises, so each original compatible world satisfies the surviving ones
-under the same clock and identity interpretation. Thus a forced violation,
-omission or overlap derived from surviving premises is also forced in the
-original. This preserves violation opposition. A certain omission or
-opposing capture overlap would contradict the consistent-start premise.
-The set of eligible supporting units can only shrink. Within each fixed
-accuracy layer, restoring eligible units preserves or enlarges their
-joined, eroded regions. A reduced absence support excludes violations in
-its compatible worlds by P3. It therefore excludes them in the original
-worlds as well. These arguments compare completed, sound derivations
-under restriction. Exact wire binding and premise resolution are needed
-for the implementations to refine this argument.
+Under these assumptions, the reduced view's finding for each applicable
+criterion contains a subset of the original finding's supported polarities.
+Qualification can retain its value or lose definiteness. Consistency can
+remain established or become unresolved. Execution diagnostics, reasons and
+provenance are outside the order.
+
+**Proof sketch.** Scalar polarity requires a witness for a fixed obligation.
+Each witness in the reduced view remains available in the original.
+For timing, an original compatible world satisfies the resolved reduced
+premises by restriction. This includes omission clauses newly considered
+after an envelope widens. If an earlier envelope excluded a unit by time,
+the original bounds already implied that clause. Thus a forced violation
+or overlap in the reduced view holds in the original. A reduced
+single-occurrence omission or global clock contradiction would rule out
+the original compatible world. A reduced capture contradiction would
+also hold in the original, contrary to consistency.
+
+Reduced supporting units were eligible in the original. Restoring units
+can enlarge or join nominal components on a clock. Eroding both results
+by the same margin preserves the inclusion, and union and clipping
+preserve it across clocks. A reduced coverage pass therefore has the
+required coverage in the original. For reduced absence support, P3
+excludes forbidden occurrences in every compatible reduced world,
+including occurrences with removed reports. It excludes them in the
+original worlds as well. The original has coverage, is compatible, and
+has no satisfiable forbidden membership query. These are the premises for
+original absence support.
 
 A consistent finding contains at most one polarity. Its only strict
 downgrade loses that polarity. The gate stays failed while a decisive
@@ -241,6 +250,11 @@ pass and consistency is established. Otherwise a definite gate weakens
 to unresolved. The consistent-start premise matters. Removing a
 witnessed omission or the opposing half of conflicting scalar evidence
 can restore a definite finding from an inconsistent original.
+
+The proof concerns the semantic assessments. Its restriction premise and
+the completed-search hypothesis are needed to apply it to an execution.
+An unresolved solver result caused by a work limit can change when the
+input becomes smaller.
 
 ### P3. Coverage soundness relative to commitments
 
@@ -253,13 +267,19 @@ with a forbidden pin on a required channel in `H` in any such world.
 
 **Proof sketch.** On a shared clock, monotonicity and equal mapped
 boundaries map a connected nominal union to `[τₖ(a),τₖ(b))`.
-Its endpoints obey the layer's common error bound `d`. The eroded
-component is therefore inside that union in every compatible assignment.
-Union across clocks and clipping preserve containment. If a forbidden
-occurrence fell in covered history, some eligible unit on that channel
-would have to list it. A fresh, unlisted occurrence violates completeness,
-and a listed one would satisfy a forbidden membership query that the
-absence rule requires to be unsatisfiable. Both contradict the pass
-premises. The compatible-world premise excludes vacuous success on an
-inconsistent formula. This entailment is conditional on the accepted
-commitments and clock model.
+The units at the outer endpoints each have accuracy at most `m`, so
+`τₖ(a) ≤ a + m` and `b − m ≤ τₖ(b)`. Every point of a nonempty
+eroded component is at or after the mapped start and strictly before the
+mapped end. Union across clocks and clipping preserve this inclusion.
+
+Suppose a forbidden occurrence fell in `H` on a required channel in a
+compatible world. The passing coverage includes its true time, so an
+eligible undefeated unit on that channel captures it. Faithful
+completeness requires an entry resolving to that occurrence, including
+when the separate exposure report is absent. Its true time would satisfy
+the membership query in that world, contradicting the absence rule's
+unsatisfiability requirement. A fresh occurrence without a resolved
+entry would contradict the unit's completeness assumption. The
+compatible-world premise excludes vacuous success on an inconsistent
+formula. The entailment is conditional on the accepted commitments and
+clock model.

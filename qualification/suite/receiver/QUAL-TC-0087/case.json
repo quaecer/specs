@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Verify retained clock calibration and coverage support through RDF.","id":"QUAL-TC-0087","requirements":["QUAL-REQ-020","QUAL-REQ-026"]}
