@@ -2,6 +2,7 @@
 @prefix earl: <http://www.w3.org/ns/earl#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 qual:ResultShape a sh:NodeShape ;
     sh:targetClass qual:Result ;
@@ -27,6 +28,10 @@ qual:ResultShape a sh:NodeShape ;
         sh:minCount 1 ;
         sh:node qual:FindingShape
     ] ;
+    sh:property [
+        sh:path ( qual:coverage [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:node qual:ChannelCoverageShape
+    ] ;
     sh:or (
         [ sh:property [ sh:path qual:qualification ;
             sh:in ( "prerequisites_failed" "prerequisites_unresolved" ) ] ]
@@ -34,6 +39,47 @@ qual:ResultShape a sh:NodeShape ;
           sh:property [ sh:path qual:clock_compatibility ; sh:hasValue "compatible" ] ;
           sh:property [ sh:path qual:consistency ; sh:hasValue "consistent" ] ]
     ) .
+
+qual:ChannelCoverageShape a sh:NodeShape ;
+    sh:property [ sh:path qual:channel ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:window ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:node qual:CompositionShape ] ;
+    sh:property [ sh:path qual:history ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:node qual:CompositionShape ] .
+
+qual:CompositionShape a sh:NodeShape ;
+    sh:property [ sh:path qual:covered ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:gaps ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:defeated ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:statements ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:reasons ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path qual:joint_omissions ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [
+        sh:path ( qual:joint_omissions [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:node qual:JointOmissionShape
+    ] .
+
+qual:JointOmissionShape a sh:NodeShape ;
+    sh:property [ sh:path qual:lower ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path qual:upper ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:property [ sh:path qual:defeat_scope ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "segment" "statement" "observer_channel" "observer" ) ] ;
+    sh:property [
+        sh:path ( qual:report_ids [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ; sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path ( qual:unit_ids [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ; sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path ( qual:defeated_units [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+        sh:minCount 1 ; sh:node qual:DefeatedUnitShape
+    ] .
+
+qual:DefeatedUnitShape a sh:NodeShape ;
+    sh:property [ sh:path qual:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:property [ sh:path qual:channel ; sh:minCount 1 ; sh:maxCount 1 ] .
 
 qual:FindingShape a sh:NodeShape ;
     sh:class earl:TestResult ;

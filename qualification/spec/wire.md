@@ -63,7 +63,8 @@ a failed qualification even when timing or consistency is unresolved.
 The result always carries `authorization: not_granted`.
 
 Coverage has separate window and history compositions. Each retains
-covered regions, gaps, defeated regions and the involved commitments.
+covered regions, gaps, defeated regions, the involved commitments and
+structured joint omission witnesses. See [committed coverage](coverage.md).
 Dependence has a dimension, exact comparison, relation and retained
 basis. Transfer records bind criterion and source policy digests.
 The resolving-set field is reserved with status `not_run`.

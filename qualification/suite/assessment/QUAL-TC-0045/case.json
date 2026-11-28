@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Verify the nonempty inventory commitment while deferring its semantics.","id":"QUAL-TC-0045","requirements":["QUAL-REQ-022"]}

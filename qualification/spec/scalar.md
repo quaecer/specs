@@ -93,7 +93,8 @@ canonical byte representations.
 ## Initial evaluation scope
 
 The [exposure fragment](exposure.md) handles declared true-time bounds and
-definite forbidden occurrences. Committed coverage and transfer remain
+definite forbidden occurrences. The [coverage fragment](coverage.md)
+checks empty commitments. Transfer and full clock translation remain
 deferred. A scalar proof does not bypass unresolved clock compatibility.
 
 The receiver can evaluate the same request from raw input. It also accepts a

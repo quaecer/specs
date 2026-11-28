@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"A shared-clock union proves the omission and retains a separate forbidden pre-lock violation.","id":"QUAL-TC-0042","requirements":["QUAL-REQ-024"]}

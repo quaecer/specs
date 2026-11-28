@@ -1,0 +1,1 @@
+{"comparison":"canonical-equal","description":"Compose adjacent nonzero-accuracy scopes on one clock; another observer's partial capture contributes no opposition.","id":"QUAL-TC-0039","requirements":["QUAL-REQ-022","QUAL-REQ-023","QUAL-REQ-025"]}

@@ -76,6 +76,21 @@
     "related_ids": {
       "@container": "@list",
       "@type": "@id"
+    },
+    "joint_omissions": {
+      "@container": "@list"
+    },
+    "defeated_units": {
+      "@container": "@list"
+    },
+    "unit": {
+      "@type": "@id"
+    },
+    "lower": {
+      "@type": "xsd:dateTime"
+    },
+    "upper": {
+      "@type": "xsd:dateTime"
     }
   }
 }
